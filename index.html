@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<title>AR Interior Designing | Luxury Interiors in Hyderabad, Telangana</title>
+<meta name="description" content="Luxury interior design studio in Hyderabad with showrooms in Beeramguda and Gachibowli. Message your dreams, our care.">
+<meta property="og:title" content="AR Interior Designing">
+<meta property="og:description" content="Message your dreams, our care. Bespoke kitchens, wardrobes, ceilings and living spaces.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{
+  --gold:#D4AF37;--gold-glow:#F3DC8A;--gold-pale:#FFF1B8;--gold-dark:#8F6F12;
+  --ink:#050505;--ink-2:#0b0a07;
+  --text:rgba(255,244,214,.78);--text-dim:rgba(255,244,214,.55);
+  --line:rgba(243,220,138,.22);--line-strong:rgba(243,220,138,.45);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ink);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:16px;line-height:1.75;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--gold);color:#000}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#050505}::-webkit-scrollbar-thumb{background:linear-gradient(var(--gold),var(--gold-dark));border-radius:9px}
+a{color:inherit;text-decoration:none}
+p,li,small{color:var(--text)}
+
+/* ---------- Atmosphere ---------- */
+#bg-video-container{position:fixed;inset:0;height:100vh;height:100lvh;z-index:0;overflow:hidden;pointer-events:none;transform:translateZ(0)}
+#bg-video{position:absolute;top:50%;left:50%;width:100%;height:100%;object-fit:cover;transform:translate(-50%,-50%) scale(1.04);will-change:transform}
+#veil{position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+   radial-gradient(120% 90% at 50% 40%,rgba(5,5,5,.15) 0%,rgba(5,5,5,.62) 65%,rgba(5,5,5,.9) 100%),
+   linear-gradient(180deg,rgba(5,5,5,.55),rgba(5,5,5,.35) 40%,rgba(5,5,5,.6))}
+#grain{position:fixed;inset:-50%;width:200%;height:200%;z-index:3;pointer-events:none;opacity:.07;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-5%)}60%{transform:translate(-5%,-2%)}80%{transform:translate(4%,4%)}100%{transform:translate(0,0)}}
+#dust{position:fixed;inset:0;z-index:2;pointer-events:none}
+header,main,footer{position:relative;z-index:5}
+
+/* ---------- Type ---------- */
+.font-display{font-family:'Cinzel',serif}
+.font-serif-i{font-family:'Cormorant Garamond',serif;font-style:italic}
+.gold-text{background:linear-gradient(120deg,#fff3c4 0%,#f3dc8a 22%,#d4af37 50%,#f3dc8a 72%,#8f6f12 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s linear infinite}
+@keyframes sheen{0%{background-position:0% 0}100%{background-position:220% 0}}
+.eyebrow{display:inline-flex;align-items:center;gap:.9rem;font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-glow);font-weight:500}
+.eyebrow::before{content:"";width:46px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.h2{font-family:'Cinzel',serif;font-size:clamp(2.1rem,4.8vw,3.7rem);font-weight:600;line-height:1.12;margin:.8rem 0 1.4rem;letter-spacing:.01em}
+.lead{font-family:'Cormorant Garamond',serif;font-size:clamp(1.25rem,2vw,1.6rem);line-height:1.5;color:var(--gold-pale);font-weight:400}
+
+/* ---------- Surfaces ---------- */
+.glass{position:relative;background:linear-gradient(145deg,rgba(255,236,170,.085),rgba(212,175,55,.025));backdrop-filter:blur(22px) saturate(140%);-webkit-backdrop-filter:blur(22px) saturate(140%);border:1px solid var(--line);border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,244,200,.14)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(255,241,184,.55),transparent 35%,transparent 65%,rgba(212,175,55,.4));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.sec{padding:8rem 1.5rem;position:relative}
+.wrap{max-width:1280px;margin:0 auto}
+.hair{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.7}
+
+/* ---------- Buttons ---------- */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.7rem;padding:1.05rem 2.4rem;border-radius:999px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem;color:#0a0802;background:linear-gradient(135deg,#fff0b0,#d4af37 52%,#8f6f12);border:1px solid var(--gold-glow);box-shadow:0 0 0 0 rgba(212,175,55,.5),0 12px 40px rgba(212,175,55,.28);overflow:hidden;transition:box-shadow .5s var(--ease)}
+.btn::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);transition:left .9s var(--ease)}
+.btn:hover::after{left:140%}
+.btn:hover{box-shadow:0 0 0 8px rgba(212,175,55,.12),0 16px 60px rgba(243,220,138,.5)}
+.btn-ghost{background:rgba(212,175,55,.06);color:var(--gold-pale);border:1px solid var(--line-strong);box-shadow:none;backdrop-filter:blur(10px)}
+.btn-ghost:hover{background:rgba(212,175,55,.16);box-shadow:0 0 0 8px rgba(212,175,55,.06)}
+.chip{padding:.6rem 1.3rem;border:1px solid var(--line-strong);border-radius:999px;color:var(--gold-pale);background:rgba(212,175,55,.05);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;backdrop-filter:blur(8px);transition:.35s var(--ease);cursor:pointer}
+.chip.on,.chip:hover{background:linear-gradient(135deg,var(--gold-glow),var(--gold-dark));color:#0a0802;border-color:var(--gold-glow);transform:translateY(-2px)}
+
+/* ---------- Header ---------- */
+header{transition:background .5s,border-color .5s,padding .5s var(--ease)}
+header.scrolled{background:rgba(8,7,3,.62);backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);border-bottom:1px solid var(--line)}
+.navlogo{width:46px;height:46px;object-fit:cover;border-radius:50%;border:1px solid var(--gold);box-shadow:0 0 22px rgba(212,175,55,.35)}
+.nl{position:relative;font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;color:var(--gold-pale);opacity:.8;transition:.3s;padding:.3rem 0}
+.nl::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
+.nl:hover,.nl.act{opacity:1;color:#fff}
+.nl:hover::after,.nl.act::after{transform:scaleX(1);transform-origin:left}
+#progress{position:fixed;top:0;left:0;height:2px;width:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,var(--gold-dark),var(--gold-pale),var(--gold));z-index:200;box-shadow:0 0 14px var(--gold)}
+@media(max-width:1023px){
+  #menu{position:fixed;inset:0;background:rgba(5,5,5,.96);backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6rem;opacity:0;visibility:hidden;transition:.5s var(--ease);z-index:-1}
+  #menu.open{opacity:1;visibility:visible}
+  #menu .nl{font-family:'Cinzel',serif;font-size:1.5rem;letter-spacing:.14em}
+}
+
+/* ---------- Hero ---------- */
+#home{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:7rem 1.25rem 5rem;isolation:isolate;position:relative}
+.frame{position:absolute;inset:clamp(.8rem,3vw,2.2rem);pointer-events:none;z-index:1}
+.frame i{position:absolute;width:44px;height:44px;border-color:var(--gold);border-style:solid;opacity:.75}
+.frame i:nth-child(1){top:0;left:0;border-width:1px 0 0 1px}.frame i:nth-child(2){top:0;right:0;border-width:1px 1px 0 0}
+.frame i:nth-child(3){bottom:0;left:0;border-width:0 0 1px 1px}.frame i:nth-child(4){bottom:0;right:0;border-width:0 1px 1px 0}
+.hero-content{position:relative;z-index:2;max-width:1200px}
+.hero-kicker{display:inline-flex;align-items:center;gap:.8rem;border:1px solid var(--line-strong);border-radius:999px;padding:.55rem 1.3rem;background:rgba(212,175,55,.07);backdrop-filter:blur(10px);letter-spacing:.3em;text-transform:uppercase;font-size:.66rem;color:var(--gold-glow)}
+.hero-kicker b{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold);animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.7)}}
+.mono{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(6rem,24vw,17rem);line-height:.9;letter-spacing:.04em;margin:1.2rem 0 0;filter:drop-shadow(0 10px 50px rgba(212,175,55,.3))}
+.mono-sub{font-family:'Cinzel',serif;font-weight:500;font-size:clamp(.6rem,3.4vw,2.2rem);letter-spacing:.5em;margin-right:-.5em;color:var(--gold-pale);text-transform:uppercase}
+.line{display:block;overflow:hidden;padding:.08em 0}
+.ch{display:inline-block;will-change:transform}
+.mono .ch{background:linear-gradient(170deg,#fff3c4 0%,#f3dc8a 30%,#d4af37 62%,#8f6f12 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(1.5rem,3.4vw,2.6rem);margin-top:1.8rem}
+.scroll-cue{position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.7rem;font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-glow);z-index:2}
+.scroll-cue span{width:1px;height:54px;background:linear-gradient(var(--gold),transparent);position:relative;overflow:hidden}
+.scroll-cue span::after{content:"";position:absolute;top:-30%;left:0;width:100%;height:30%;background:#fff;animation:drip 2.2s var(--ease) infinite}
+@keyframes drip{to{top:110%}}
+
+/* ---------- Marquee ---------- */
+.marq{overflow:hidden;border-block:1px solid var(--line);background:rgba(5,5,5,.55);backdrop-filter:blur(14px);padding:1.2rem 0}
+.marq-track{display:flex;width:max-content;animation:slide 40s linear infinite}
+.marq:hover .marq-track{animation-play-state:paused}
+.marq-track span{white-space:nowrap;padding:0 1.8rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.4rem,3vw,2.2rem);color:var(--gold-pale)}
+.marq-track span em{font-style:normal;color:var(--gold);padding-left:3.6rem;font-size:.9rem}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ---------- About ---------- */
+.about-grid{display:grid;grid-template-columns:minmax(260px,.85fr) minmax(0,1.15fr);gap:clamp(2.5rem,6vw,5.5rem);align-items:center}
+.photo-wrap{position:relative;max-width:430px;width:100%;margin:auto}
+.photo-wrap::before{content:"";position:absolute;inset:-18px -18px 18px 18px;border:1px solid var(--gold);border-radius:22px;opacity:.55;transition:.8s var(--ease)}
+.photo-wrap:hover::before{inset:-10px -10px 10px 10px;opacity:.95}
+.about-photo{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:22px;border:1px solid var(--line-strong);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.about-photo img{width:100%;height:118%;object-fit:cover;object-position:center top;display:block}
+.about-photo::after{content:"";position:absolute;inset:50% 0 0;background:linear-gradient(transparent,rgba(5,5,5,.85));pointer-events:none}
+.nameplate{position:absolute;left:1.3rem;bottom:1.2rem;z-index:2}
+.nameplate b{display:block;font-family:'Cinzel',serif;color:var(--gold-pale);font-size:1.05rem;letter-spacing:.12em}
+.nameplate small{letter-spacing:.3em;text-transform:uppercase;font-size:.62rem;color:var(--gold-glow)}
+
+.orbit{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.8rem}
+.orbit span{border:1px solid var(--line-strong);border-radius:999px;padding:.5rem 1rem;color:var(--gold-pale);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(212,175,55,.06);animation:bob 4.5s ease-in-out infinite}
+.orbit span:nth-child(2){animation-delay:.5s}.orbit span:nth-child(3){animation-delay:1s}.orbit span:nth-child(4){animation-delay:1.5s}
+@keyframes bob{50%{transform:translateY(-5px)}}
+.sig{margin-top:2rem;padding:.9rem 0;border-block:1px solid var(--line);display:flex;align-items:center;gap:1rem;font-family:'Cinzel',serif;letter-spacing:.14em;text-transform:uppercase;font-size:.8rem;color:var(--gold-glow)}
+.sig b{color:#fff1b8;font-weight:700}
+
+/* ---------- Services ---------- */
+.svc{display:grid;grid-template-columns:70px 1fr auto;gap:1.5rem;align-items:center;padding:1.8rem 1rem;border-bottom:1px solid var(--line);position:relative;transition:.6s var(--ease);cursor:default}
+.svc::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(212,175,55,.14),transparent);opacity:0;transition:.6s var(--ease)}
+.svc:hover::before{opacity:1}.svc:hover{padding-left:2rem}
+.svc .n{font-family:'Cinzel',serif;color:var(--gold);font-size:.9rem;letter-spacing:.2em}
+.svc h3{font-family:'Cinzel',serif;font-size:clamp(1.3rem,3vw,2.2rem);font-weight:500;color:var(--gold-pale);margin:0;line-height:1.2;transition:.5s}
+.svc:hover h3{color:#fff}
+.svc p{margin:.35rem 0 0;font-size:.95rem;max-width:560px;color:var(--text-dim)}
+.svc .ar{width:46px;height:46px;border:1px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;color:var(--gold);transition:.6s var(--ease)}
+.svc:hover .ar{background:var(--gold);color:#000;transform:rotate(-45deg)}
+@media(max-width:640px){.svc{grid-template-columns:44px 1fr;}.svc .ar{display:none}}
+
+/* ---------- Portfolio ---------- */
+#grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.4rem;perspective:1400px}
+#grid .tile{aspect-ratio:4/3;width:100%}
+@media(max-width:1023px){#grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}}
+@media(max-width:600px){#grid{grid-template-columns:1fr}}
+.tile{position:relative;border-radius:22px;overflow:hidden;cursor:pointer;border:1px solid var(--line);background:#0b0a07;transform-style:preserve-3d;transition:border-color .5s,box-shadow .6s var(--ease);--rx:0deg;--ry:0deg;will-change:transform}
+.tile.vis{transform:rotateX(var(--rx)) rotateY(var(--ry))}
+.tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),filter .8s;filter:saturate(1.05) brightness(.9)}
+.tile:hover video{transform:scale(1.1);filter:saturate(1.2) brightness(1.05)}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.25) 0%,transparent 35%,rgba(5,5,5,.88) 100%);pointer-events:none;transition:.6s}
+.tile:hover{border-color:var(--gold-glow);box-shadow:0 30px 80px rgba(212,175,55,.28)}
+.tile .meta{position:absolute;left:1.3rem;right:1.3rem;bottom:1.15rem;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}
+.tile .meta small{display:block;letter-spacing:.3em;text-transform:uppercase;font-size:.6rem;color:var(--gold-glow)}
+.tile .meta b{font-family:'Cinzel',serif;font-size:1.15rem;color:#fff1c2;text-shadow:0 2px 14px #000;font-weight:600;line-height:1.25}
+.tile .idx{position:absolute;top:1rem;left:1.2rem;z-index:2;font-family:'Cinzel',serif;color:var(--gold-pale);font-size:.8rem;letter-spacing:.2em}
+.tile .play{flex:none;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold-glow);display:grid;place-items:center;color:var(--gold-pale);backdrop-filter:blur(8px);background:rgba(5,5,5,.35);transform:scale(.8);opacity:0;transition:.5s var(--ease)}
+.tile:hover .play,.tile:focus-visible .play{transform:scale(1);opacity:1}
+.tile:focus-visible{outline:2px solid var(--gold-glow);outline-offset:3px}
+
+/* ---------- Process ---------- */
+.proc{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.4rem;counter-reset:s}
+.step{padding:2.3rem 1.8rem;transition:transform .6s var(--ease),box-shadow .6s}
+.step:hover{transform:translateY(-8px);box-shadow:0 40px 90px rgba(212,175,55,.2)}
+.step .no{font-family:'Cinzel',serif;font-size:3.4rem;font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:1px var(--gold);opacity:.8}
+.step h3{font-family:'Cinzel',serif;color:var(--gold-pale);font-size:1.3rem;margin:1rem 0 .6rem;font-weight:600}
+.step p{margin:0;font-size:.95rem}
+
+/* ---------- Stats ---------- */
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:700;line-height:1.1}
+
+/* ---------- Reviews ---------- */
+.rcard{padding:2.4rem 2rem;transition:.6s var(--ease)}
+.rcard:hover{transform:translateY(-8px)}
+.rcard .q{font-family:'Cinzel',serif;font-size:4.5rem;line-height:.6;color:var(--gold);opacity:.5}
+.rcard blockquote{margin:1rem 0 1.5rem;font-family:'Cormorant Garamond',serif;font-size:1.4rem;line-height:1.5;color:var(--gold-pale);font-style:italic}
+
+/* ---------- Branches ---------- */
+iframe{width:100%;height:300px;border:1px solid var(--line-strong);border-radius:18px;filter:invert(.92) hue-rotate(180deg) grayscale(.6) sepia(.35) contrast(.95) brightness(.95)}
+
+/* ---------- Contact ---------- */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;text-align:left}
+.cbtn{display:flex;align-items:center;gap:1rem;padding:1.15rem 1.3rem;border:1px solid var(--line);border-radius:18px;background:rgba(212,175,55,.05);transition:.5s var(--ease);min-width:0}
+.cbtn svg{flex:none;stroke:var(--gold);transition:.4s}
+.cbtn .cl{display:flex;flex-direction:column;min-width:0;line-height:1.35}
+.cbtn .cl b{color:var(--gold-pale);font-size:.98rem;font-weight:600}
+.cbtn .cl small{overflow-wrap:anywhere;font-size:.82rem;color:var(--text-dim)}
+.cbtn:hover{transform:translateY(-5px);background:linear-gradient(135deg,#f3dc8a,#997a15);box-shadow:0 18px 50px rgba(212,175,55,.35);border-color:var(--gold-glow)}
+.cbtn:hover svg{stroke:#080808}.cbtn:hover .cl b,.cbtn:hover .cl small{color:#080808}
+
+/* ---------- Floating WhatsApp ---------- */
+#wafab{position:fixed;right:max(1.3rem,env(safe-area-inset-right));bottom:max(1.3rem,env(safe-area-inset-bottom));z-index:120;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#fff0b0,#d4af37 55%,#8f6f12);box-shadow:0 10px 40px rgba(212,175,55,.5);transition:transform .5s var(--ease)}
+#wafab:hover{transform:scale(1.12) rotate(-6deg)}
+#wafab::before{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid var(--gold-glow);animation:ping 2.4s var(--ease) infinite}
+@keyframes ping{to{transform:scale(1.7);opacity:0}}
+
+/* ---------- Lightbox ---------- */
+#lb{position:fixed;inset:0;z-index:180;background:rgba(5,5,5,.94);backdrop-filter:blur(26px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;opacity:1;transition:opacity .4s}
+#lb.hidden{display:none}
+#lbvideo{width:min(92vw,1100px);max-height:72vh;aspect-ratio:16/10;border-radius:20px;border:1px solid var(--gold);object-fit:cover;box-shadow:0 0 120px rgba(212,175,55,.25)}
+.lbb{position:absolute;color:var(--gold-pale);background:rgba(212,175,55,.08);border:1px solid var(--line-strong);width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-size:1.5rem;cursor:pointer;transition:.4s var(--ease)}
+.lbb:hover{background:var(--gold);color:#000}
+#lbclose{top:1.2rem;right:1.4rem}#lbprev{left:1.2rem;top:50%}#lbnext{right:1.2rem;top:50%}
+@media(max-width:700px){#lbprev,#lbnext{top:auto;bottom:1.3rem}#lbprev{left:30%}#lbnext{right:30%}}
+
+/* ---------- Preloader ---------- */
+#preloader{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 45%,#16120a,#050505 70%);overflow:hidden}
+.pl{display:flex;flex-direction:column;align-items:center;text-align:center;padding:1rem}
+.coin-stage{width:min(60vw,210px);height:min(60vw,210px);perspective:1200px;display:grid;place-items:center;margin-bottom:2rem;position:relative}
+.coin-stage::before{content:"";position:absolute;inset:-30%;background:radial-gradient(circle,rgba(212,175,55,.3),transparent 62%);animation:pulse 3s infinite}
+.coin{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:flip 4.2s cubic-bezier(.45,.05,.55,.95) infinite}
+.cf{position:absolute;inset:0;backface-visibility:hidden;display:grid;place-items:center;border-radius:50%;padding:10px;background:linear-gradient(145deg,rgba(255,255,255,.1),rgba(0,0,0,.6));border:1px solid rgba(243,220,138,.85);box-shadow:0 0 60px rgba(212,175,55,.3),inset 0 0 30px rgba(212,175,55,.12)}
+.cf img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.cf.back{transform:rotateY(180deg)}
+@keyframes flip{0%{transform:rotateY(0) rotateX(-5deg)}50%{transform:rotateY(180deg) rotateX(5deg)}100%{transform:rotateY(360deg) rotateX(-5deg)}}
+.pl-track{width:min(280px,70vw);height:2px;background:rgba(243,220,138,.15);margin-top:1.6rem;overflow:hidden;border-radius:9px}
+.pl-bar{height:100%;width:0;background:linear-gradient(90deg,#8f6f12,#fff3c4);box-shadow:0 0 14px var(--gold)}
+.pl-pct{font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.3em;color:var(--gold-glow);margin-top:.8rem}
+
+/* ---------- Cursor ---------- */
+#orb,#ring,#dir,.trail{position:fixed;top:0;left:0;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%)}
+#orb{z-index:352;width:12px;height:12px;background:radial-gradient(#fff3bd,#d4af37);box-shadow:0 0 22px 6px rgba(212,175,55,.65)}
+.trail{z-index:349;width:5px;height:5px;background:#f3dc8a;box-shadow:0 0 9px rgba(212,175,55,.7)}
+#ring{z-index:350;width:46px;height:46px;transition:width .4s var(--ease),height .4s var(--ease),background .4s}
+#ring .rr{position:absolute;inset:0;border-radius:50%;border:2px dotted rgba(243,220,138,.9);animation:spin 9s linear infinite;transition:border-color .4s}
+#ring.big{width:80px;height:80px;background:rgba(212,175,55,.1)}
+#ring.big .rr{border-color:#fff1b8}
+#dir{z-index:351;width:0;height:0;opacity:0;transition:opacity .25s}
+#dir i{position:absolute;top:-2.5px;border-radius:50%;background:var(--gold-glow);box-shadow:0 0 9px var(--gold)}
+#dir i:nth-child(1){left:30px;width:3px;height:3px;opacity:.4}
+#dir i:nth-child(2){left:38px;width:4px;height:4px;opacity:.7}
+#dir i:nth-child(3){left:47px;width:5px;height:5px}
+#dir b{position:absolute;left:55px;top:-6px;width:12px;height:12px;border-top:2px dotted var(--gold-pale);border-right:2px dotted var(--gold-pale);transform:rotate(45deg)}
+
+footer{border-top:1px solid var(--line);background:rgba(5,5,5,.7);backdrop-filter:blur(18px)}
+.flink{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-pale);opacity:.75;transition:.3s}
+.flink:hover{opacity:1;color:#fff}
+
+@media(max-width:767px){.sec{padding:5rem 1.1rem}.about-grid{grid-template-columns:1fr}.photo-wrap{max-width:320px}iframe{height:240px}.frame i{width:26px;height:26px}}
+@media(hover:none){#orb,#ring{display:none}}
+@media(prefers-reduced-motion:reduce){.marq-track,.orbit span,.gold-text,#grain{animation:none!important}html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}#orb,#ring,#dust{display:none!important}}
+
+/* ===== v2: portability, CEO showcase, cursor helpers ===== */
+html,body{max-width:100%;overflow-x:clip}
+body{-webkit-tap-highlight-color:transparent}
+img,video,iframe{max-width:100%}
+header nav.max-w-7xl{padding-left:max(1.25rem,env(safe-area-inset-left));padding-right:max(1.25rem,env(safe-area-inset-right))}
+footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
+@keyframes spin{to{transform:rotate(360deg)}}
+#lbvideo{max-height:72vh;max-height:72dvh}
+
+.photo-wrap{isolation:isolate}
+.est-halo{position:absolute;inset:-14% -22%;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(212,175,55,.3),rgba(212,175,55,.09) 55%,transparent 78%);filter:blur(12px)}
+.shine{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(115deg,transparent 36%,rgba(255,241,184,.3) 50%,transparent 64%);transform:translateX(-120%);animation:shineSweep 6.5s var(--ease) infinite}
+@keyframes shineSweep{0%,55%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.nameplate{z-index:2}
+.year-plate{position:absolute;z-index:4;right:-1.4rem;top:-1.7rem;padding:.7rem 1.35rem .8rem;border-radius:18px;text-align:center;background:linear-gradient(145deg,rgba(8,6,2,.84),rgba(64,46,8,.6));backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border:1px solid var(--gold-glow);box-shadow:0 18px 50px rgba(0,0,0,.55),0 0 44px rgba(212,175,55,.3),inset 0 1px 0 rgba(255,244,200,.35)}
+.year-plate::after{content:"";position:absolute;inset:5px;border:1px solid rgba(243,220,138,.25);border-radius:13px;pointer-events:none}
+.year-plate small{display:block;font-size:.58rem;letter-spacing:.42em;margin-right:-.42em;text-transform:uppercase;color:var(--gold-glow);line-height:1.6}
+.year-plate b{display:block;font-family:'Cinzel',serif;font-weight:900;font-size:clamp(2.3rem,5.4vw,3.6rem);line-height:1.05;letter-spacing:.06em;background:linear-gradient(170deg,#fff6cf,#f3dc8a 40%,#d4af37 70%,#8f6f12);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 14px rgba(243,220,138,.5))}
+.seal{position:absolute;z-index:4;right:-1.6rem;bottom:-1.6rem;width:112px;height:112px;filter:drop-shadow(0 12px 30px rgba(0,0,0,.6)) drop-shadow(0 0 22px rgba(212,175,55,.35))}
+.seal svg{width:100%;height:100%;display:block}
+.seal .rot{transform-origin:60px 60px;animation:spin 20s linear infinite}
+.seal text{font-family:'Cinzel',serif;font-size:8px;font-weight:600;letter-spacing:1.4px;fill:#f3dc8a}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:2rem 0;border:1px solid var(--line-strong);border-radius:20px;overflow:hidden;background:linear-gradient(145deg,rgba(8,6,2,.55),rgba(212,175,55,.07))}
+.facts>div{padding:1.1rem 1.2rem;border-right:1px solid var(--line);min-width:0}
+.facts>div:last-child{border-right:0}
+.facts small{display:block;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-glow)}
+.facts b{display:block;margin-top:.25rem;font-family:'Cinzel',serif;font-weight:600;font-size:.98rem;line-height:1.35;color:var(--gold-pale)}
+
+@media(hover:none){.tile .play{opacity:1;transform:scale(1)}}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}.photo-wrap{max-width:340px}}
+@media(max-width:767px){
+  .glass{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:22px}
+  #grain{animation:none}
+  .mono-sub{letter-spacing:.38em;margin-right:-.38em}
+  .facts{grid-template-columns:1fr}
+  .facts>div{border-right:0;border-bottom:1px solid var(--line)}
+  .facts>div:last-child{border-bottom:0}
+  .seal{width:92px;height:92px;right:-.9rem;bottom:-1.2rem}
+  .year-plate{right:-.7rem;top:-1.3rem}
+  .tile .meta b{font-size:1rem}
+  .lbb{width:46px;height:46px}
+  .cbtn{padding:1rem}
+  .svc h3{font-size:1.25rem}
+}
+@media(max-width:380px){
+  .brand-t{font-size:.54rem!important;letter-spacing:.1em!important}
+  .navlogo{width:38px;height:38px}
+  .btn{padding:.95rem 1.6rem}
+  .hero-kicker{letter-spacing:.2em;font-size:.58rem;padding:.5rem 1rem}
+  .eyebrow::before{width:28px}
+}
+@media(max-height:480px) and (orientation:landscape){
+  #home{padding-top:5.5rem;padding-bottom:3rem}
+  .mono{font-size:5rem}
+  .scroll-cue{display:none}
+}
+@media(min-width:1800px){html{font-size:17px}.wrap{max-width:1500px}}
+</style>
+</head>
+<body>
+
+<div id="progress" aria-hidden="true"></div>
+
+<!-- Cinematic background -->
+<div id="bg-video-container" aria-hidden="true">
+  <video id="bg-video" src="https://res.cloudinary.com/ofiyq8xe/video/upload/v1794072104/Drone_flying_through_architectur__aa12d4df_1080p.mp4" autoplay muted loop playsinline preload="auto"></video>
+</div>
+<div id="veil" aria-hidden="true"></div>
+<canvas id="dust" aria-hidden="true"></canvas>
+<div id="grain" aria-hidden="true"></div>
+
+<!-- Preloader -->
+<div id="preloader" role="status" aria-label="Loading AR Interior Designing">
+  <div class="pl">
+    <div class="coin-stage">
+      <div class="coin" aria-hidden="true">
+        <div class="cf"><img src="https://res.cloudinary.com/ofiyq8xe/image/upload/v1793731952/WhatsApp_Image_2026-11-03_at_11.57.46_PM.jpg" alt=""></div>
+        <div class="cf back"><img src="https://res.cloudinary.com/ofiyq8xe/image/upload/v1793731952/WhatsApp_Image_2026-11-03_at_11.57.46_PM.jpg" alt=""></div>
+      </div>
+    </div>
+    <p class="font-display gold-text tracking-[.35em] text-sm sm:text-base font-bold">AR INTERIOR DESIGNING</p>
+    <p class="text-[.65rem] tracking-[.4em] mt-3 text-[var(--gold-glow)] opacity-80">MESSAGE YOUR DREAMS, OUR CARE</p>
+    <div class="pl-track"><div class="pl-bar"></div></div>
+    <div class="pl-pct">0%</div>
+  </div>
+</div>
+
+<div id="orb" aria-hidden="true"></div><div id="ring" aria-hidden="true"><span class="rr"></span></div><div id="dir" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
+
+<a id="wafab" data-wa href="#" aria-label="Chat on WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="#0a0802"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2z"/></svg>
+</a>
+
+<header class="fixed top-0 inset-x-0 z-[100]" id="hdr">
+  <nav class="max-w-7xl mx-auto flex items-center justify-between px-5 sm:px-8 py-4">
+    <a href="#home" class="flex items-center gap-3 relative z-[2]">
+      <img src="https://res.cloudinary.com/ofiyq8xe/image/upload/v1793731952/WhatsApp_Image_2026-11-03_at_11.57.46_PM.jpg" alt="AR Interior Designing logo" class="navlogo">
+      <span class="brand-t font-display gold-text text-[.8rem] sm:text-base font-bold tracking-[.22em]">AR INTERIOR DESIGNING</span>
+    </a>
+    <button id="menuBtn" class="lg:hidden text-3xl text-yellow-200 relative z-[2]" aria-label="Toggle navigation" aria-expanded="false" aria-controls="menu">☰</button>
+    <ul id="menu" class="lg:flex items-center gap-8 list-none m-0 p-0">
+      <li><a class="nl" href="#home">Home</a></li><li><a class="nl" href="#about">About</a></li><li><a class="nl" href="#services">Services</a></li><li><a class="nl" href="#portfolio">Portfolio</a></li><li><a class="nl" href="#reviews">Reviews</a></li><li><a class="nl" href="#branches">Showrooms</a></li><li><a class="nl" href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+<!-- HERO -->
+<section id="home">
+  <div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="hero-content">
+    <span class="hero-kicker" data-hero><b></b>Luxury spaces · Thoughtful living</span>
+    <h1 class="m-0">
+      <span class="line mono" aria-label="AR" id="monoAR">AR</span>
+      <span class="line mono-sub" id="monoSub" aria-label="Interior Designing">INTERIOR DESIGNING</span>
+    </h1>
+    <p class="tagline gold-text" data-hero>Message your dreams, our care</p>
+    <p class="max-w-2xl mx-auto mt-5 text-base sm:text-lg" data-hero>Beautifully considered interiors, crafted around the way you live.</p>
+    <div class="mt-10 flex flex-wrap gap-4 justify-center" data-hero>
+      <a class="btn mag" data-wa href="#">Book Consultation</a>
+      <a class="btn btn-ghost mag" href="#portfolio">View Portfolio</a>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true">Scroll<span></span></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marq" aria-hidden="true">
+  <div class="marq-track">
+    <div class="flex"><span>Modular Kitchens<em>✦</em></span><span>Bespoke Wardrobes<em>✦</em></span><span>Coffered Ceilings<em>✦</em></span><span>Grand Living Rooms<em>✦</em></span><span>TV Unit Walls<em>✦</em></span><span>Master Bedrooms<em>✦</em></span></div>
+    <div class="flex"><span>Modular Kitchens<em>✦</em></span><span>Bespoke Wardrobes<em>✦</em></span><span>Coffered Ceilings<em>✦</em></span><span>Grand Living Rooms<em>✦</em></span><span>TV Unit Walls<em>✦</em></span><span>Master Bedrooms<em>✦</em></span></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="sec">
+  <div class="wrap glass p-6 sm:p-10 md:p-16">
+    <div class="about-grid">
+      <div class="photo-wrap" data-rv>
+        <div class="est-halo" aria-hidden="true"></div>
+        <div class="about-photo" id="aboutPhoto">
+          <img src="https://res.cloudinary.com/ofiyq8xe/image/upload/v1793987422/WhatsApp_Image_2026-11-06_at_11.17.40_PM.jpg" alt="Mr. Manikanta, Founder and CEO of AR Interior Designing" loading="lazy">
+          <div class="shine" aria-hidden="true"></div>
+          <div class="nameplate"><b>Mr. Manikanta</b><small>Founder &amp; CEO</small></div>
+        </div>
+        <div class="year-plate" aria-label="Established January 2024"><small>Established</small><b>2024</b><small>January</small></div>
+        <div class="seal" aria-hidden="true">
+          <svg viewBox="0 0 120 120"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset=".5" stop-color="#d4af37"/><stop offset="1" stop-color="#8f6f12"/></linearGradient><path id="sc" d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0"/></defs>
+          <circle cx="60" cy="60" r="58" fill="rgba(8,6,2,.84)" stroke="url(#sg)" stroke-width="1.5"/>
+          <circle cx="60" cy="60" r="32" fill="none" stroke="rgba(243,220,138,.5)" stroke-width="1" stroke-dasharray="1 4" stroke-linecap="round"/>
+          <g class="rot"><text><textPath href="#sc">AR INTERIOR DESIGNING ✦ EST. 2024 ✦ </textPath></text></g>
+          <text x="60" y="69" text-anchor="middle" style="font-family:'Cinzel',serif;font-size:22px;font-weight:900;fill:url(#sg)">AR</text></svg>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow" data-rv>The people behind the spaces</p>
+        <h2 class="h2 gold-text" data-rv>A little about us</h2>
+        <p class="lead" data-rv>AR Interior Designing was established in January 2024 with a simple purpose: to create beautiful, functional spaces that feel personal to the people who live in them.</p>
+        <p class="mt-5" data-rv>From modular kitchens and custom wardrobes to elegant ceilings and thoughtfully designed living spaces, our team brings together practical planning, refined aesthetics and careful execution.</p>
+        <div class="facts" data-rv><div><small>Founder &amp; CEO</small><b>Mr. Manikanta</b></div><div><small>Established</small><b>January 2024</b></div><div><small>Studios</small><b>Beeramguda · Gachibowli</b></div></div>
+        <p class="mt-5" data-rv>With a founder-led approach, <strong class="gold-text">Mr. Manikanta</strong> guides the studio's vision and commitment to thoughtful design, dependable service and quality craftsmanship. We welcome clients at our Beeramguda and Gachibowli locations.</p>
+        <div class="orbit" aria-label="Our design values" data-rv><span>✦ Personalised design</span><span>✦ Fine craftsmanship</span><span>✦ Functional spaces</span><span>✦ Client-first service</span></div>
+        <a href="#contact" class="btn mag mt-9" data-rv>Discuss your project</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="sec">
+  <div class="wrap">
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-10">
+      <div><p class="eyebrow" data-rv>The atelier</p><h2 class="h2 gold-text" data-rv>What we craft</h2></div>
+      <p class="max-w-md" data-rv>Every piece is planned around your home, your routine and your taste, then finished with care.</p>
+    </div>
+    <div class="glass px-3 sm:px-8 py-2" data-rv>
+      <div class="svc"><span class="n">01</span><div><h3>Modular Kitchens</h3><p>Efficient layouts, rich finishes and storage that keeps every detail within reach.</p></div><span class="ar">→</span></div>
+      <div class="svc"><span class="n">02</span><div><h3>Wardrobes &amp; Walk-ins</h3><p>Custom cupboards and dressing rooms shaped around how you live and dress.</p></div><span class="ar">→</span></div>
+      <div class="svc"><span class="n">03</span><div><h3>False Ceilings</h3><p>Coffered, layered and cove-lit ceilings that give a room its crown.</p></div><span class="ar">→</span></div>
+      <div class="svc"><span class="n">04</span><div><h3>Living &amp; TV Walls</h3><p>Statement feature walls and entertainment units with a refined, balanced look.</p></div><span class="ar">→</span></div>
+      <div class="svc"><span class="n">05</span><div><h3>Bedrooms</h3><p>Calm, considered suites with beds, panelling and lighting made for rest.</p></div><span class="ar">→</span></div>
+      <div class="svc" style="border-bottom:0"><span class="n">06</span><div><h3>Painting &amp; Finishing</h3><p>Interior and exterior finishes that complete the story, right down to the last edge.</p></div><span class="ar">→</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="sec">
+  <div class="wrap">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div><p class="eyebrow" data-rv>Selected work</p><h2 class="h2 gold-text" data-rv>Our Portfolio</h2></div>
+      <p class="max-w-md" data-rv>Explore spaces shaped by detail, function and timeless style.</p>
+    </div>
+    <div class="flex flex-wrap gap-3 my-9" id="filters" data-rv>
+      <button class="chip on" data-f="all">All</button><button class="chip" data-f="Kitchen">Kitchens</button><button class="chip" data-f="Living">Living</button><button class="chip" data-f="Bedroom">Bedrooms</button><button class="chip" data-f="Ceiling">Ceilings</button>
+    </div>
+    <div id="grid"></div>
+    <p class="text-sm mt-7 text-center" style="color:var(--text-dim)">Explore our interior concepts and selected project visuals.</p>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="sec">
+  <div class="wrap">
+    <div class="text-center"><p class="eyebrow" data-rv>How we work</p><h2 class="h2 gold-text" data-rv>From dream to doorstep</h2></div>
+    <div class="proc mt-12">
+      <div class="glass step" data-rv><div class="no">01</div><h3>Conversation</h3><p>We listen first: your routine, your taste, your budget and the way you want to feel at home.</p></div>
+      <div class="glass step" data-rv><div class="no">02</div><h3>Concept</h3><p>Layouts, materials and finishes come together in a clear design you can picture before we begin.</p></div>
+      <div class="glass step" data-rv><div class="no">03</div><h3>Craft</h3><p>Careful execution, dependable timelines and close attention to every joint, edge and surface.</p></div>
+      <div class="glass step" data-rv><div class="no">04</div><h3>Handover</h3><p>A final walkthrough so every detail is just as you imagined, ready to live in.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats" class="sec" style="padding-top:0">
+  <div class="wrap grid sm:grid-cols-3 gap-5 text-center">
+    <div class="glass p-9" data-rv><p class="stat-number gold-text"><span class="count" data-n="500">0</span>+</p><p class="mt-2 tracking-[.2em] uppercase text-xs">Happy customers</p></div>
+    <div class="glass p-9" data-rv><p class="stat-number gold-text">Jan 2024</p><p class="mt-2 tracking-[.2em] uppercase text-xs">Studio founded</p></div>
+    <div class="glass p-9" data-rv><p class="stat-number gold-text"><span class="count" data-n="2">0</span></p><p class="mt-2 tracking-[.2em] uppercase text-xs">Showrooms in Telangana</p></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<!-- NOTE: publish only genuine, permissioned customer testimonials. Replace the sample entries in the "reviews" array in the script below. -->
+<section id="reviews" class="sec">
+  <div class="wrap"><div class="text-center"><p class="eyebrow" data-rv>Experiences</p><h2 class="h2 gold-text" data-rv>Client Reviews</h2></div>
+    <div class="grid md:grid-cols-3 gap-6 mt-12" id="rev"></div>
+  </div>
+</section>
+
+<!-- SHOWROOMS -->
+<section id="branches" class="sec">
+  <div class="wrap"><div class="text-center"><p class="eyebrow" data-rv>Visit us</p><h2 class="h2 gold-text" data-rv>Our Showrooms</h2></div>
+    <div class="grid md:grid-cols-2 gap-7 mt-12">
+      <article class="glass p-6 sm:p-9" data-rv><h3 class="font-display gold-text text-2xl font-bold m-0">Beeramguda</h3><p class="mb-5 mt-1">Headquarters and Experience Center</p><iframe loading="lazy" title="Beeramguda map" src="https://www.google.com/maps?q=Beeramguda,Hyderabad&output=embed"></iframe><a class="btn btn-ghost mt-6" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Beeramguda+Hyderabad">Get directions</a></article>
+      <article class="glass p-6 sm:p-9" data-rv><h3 class="font-display gold-text text-2xl font-bold m-0">Gachibowli</h3><p class="mb-5 mt-1">Branch Studio</p><iframe loading="lazy" title="Gachibowli map" src="https://www.google.com/maps?q=Gachibowli,Hyderabad&output=embed"></iframe><a class="btn btn-ghost mt-6" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Gachibowli+Hyderabad">Get directions</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="sec">
+  <div class="max-w-4xl mx-auto glass p-7 sm:p-12 md:p-16 text-center" data-rv>
+    <p class="eyebrow justify-center">Let's create something beautiful</p>
+    <h2 class="h2 gold-text">Book Your Consultation</h2>
+    <p class="lead max-w-xl mx-auto mb-9">Speak with our design team and bring your dream home to life.</p>
+    <a class="btn mag" data-wa href="#">Chat on WhatsApp</a>
+    <div class="cgrid mt-12" id="cgrid">
+      <a class="cbtn" href="tel:+917569954319"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span class="cl"><b>Call us</b><small>7569954319</small></span></a>
+      <a class="cbtn" href="mailto:arinrteriordesigning@gmail.com"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><span class="cl"><b>Email us</b><small>arinrteriordesigning@gmail.com</small></span></a>
+      <a class="cbtn" href="https://instagram.com/arinteriordesign" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg><span class="cl"><b>Instagram</b><small>@arinteriordesign</small></span></a>
+      <a class="cbtn" data-social="facebook" href="#" target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg><span class="cl"><b>Facebook</b><small>Follow our page</small></span></a>
+      <a class="cbtn" data-social="youtube" href="#" target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><path d="m10 8 6 4-6 4z"/></svg><span class="cl"><b>YouTube</b><small>Watch our projects</small></span></a>
+      <a class="cbtn" data-social="linkedin" href="#" target="_blank" rel="noopener" hidden><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg><span class="cl"><b>LinkedIn</b><small>Connect with us</small></span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="text-center py-14 px-5">
+  <p class="font-display gold-text text-2xl sm:text-3xl font-bold tracking-[.3em] m-0">AR INTERIOR DESIGNING</p>
+  <p class="font-serif-i text-xl mt-3" style="color:var(--gold-pale)">Message your dreams, our care</p>
+  <div class="hair w-48 mx-auto my-7"></div>
+  <p class="flex flex-wrap justify-center gap-x-8 gap-y-3"><a class="flink" href="#home">Home</a><a class="flink" href="#about">About</a><a class="flink" href="#services">Services</a><a class="flink" href="#portfolio">Portfolio</a><a class="flink" href="#contact">Contact</a></p>
+  <p class="text-xs mt-7" style="color:var(--text-dim)">© <span id="yr"></span> AR Interior Designing. All rights reserved.</p>
+</footer>
+
+<!-- Lightbox -->
+<div id="lb" class="hidden" role="dialog" aria-modal="true" aria-label="Portfolio video preview">
+  <button class="lbb" id="lbclose" aria-label="Close preview">×</button>
+  <button class="lbb" id="lbprev" aria-label="Previous">‹</button>
+  <button class="lbb" id="lbnext" aria-label="Next">›</button>
+  <div id="lbcontent"></div>
+  <p id="lbcap" class="font-display gold-text mt-6 text-xl text-center"></p>
+  <p id="lbcount" class="text-xs tracking-[.3em] mt-1" style="color:var(--text-dim)"></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(() => {
+  'use strict';
+
+  /* ===== Editable settings ===== */
+  const PHONE = '917569954319';
+  const SOCIAL = { facebook: '', youtube: '', linkedin: '' }; // paste official page links to show these buttons
+
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+  const WA = 'https://wa.me/' + PHONE + '?text=' + encodeURIComponent('Hi AR Interior Designing, I would like to book a consultation.');
+  $$('[data-wa]').forEach(a => { a.href = WA; a.target = '_blank'; a.rel = 'noopener'; });
+  $$('[data-social]').forEach(a => { const u = SOCIAL[a.dataset.social]; if (u) { a.href = u; a.hidden = false; } });
+  $('#yr').textContent = new Date().getFullYear();
+
+  /* ===== Hero title split ===== */
+  const split = el => {
+    const t = el.textContent;
+    el.textContent = '';
+    const inner = document.createElement('span');
+    inner.style.display = 'inline-block';
+    [...t].forEach(c => {
+      const s = document.createElement('span');
+      s.className = 'ch'; s.textContent = c === ' ' ? '\u00A0' : c; s.setAttribute('aria-hidden', 'true');
+      inner.appendChild(s);
+    });
+    el.appendChild(inner);
+    return $$('.ch', el);
+  };
+  const arChars = split($('#monoAR'));
+  const subChars = split($('#monoSub'));
+  if (!reduced) {
+    // keep letters hidden until preloader leaves
+    arChars.concat(subChars).forEach(c => c.style.transform = 'translateY(115%)');
+    $$('[data-hero]').forEach(e => e.style.opacity = 0);
+  }
+
+  /* ===== Mobile nav ===== */
+  const menuBtn = $('#menuBtn'), menu = $('#menu');
+  const setMenu = open => {
+    menu.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.innerHTML = open ? '×' : '☰';
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  menuBtn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+  $$('#menu a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+  /* ===== Header, progress, active link ===== */
+  const hdr = $('#hdr'), bar = $('#progress');
+  const onScroll = () => {
+    hdr.classList.toggle('scrolled', scrollY > 40);
+    const h = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')';
+  };
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  const links = $$('.nl');
+  const secObs = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) links.forEach(l => l.classList.toggle('act', l.getAttribute('href') === '#' + e.target.id));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  ['home','about','services','portfolio','reviews','branches','contact'].forEach(id => { const s = document.getElementById(id); if (s) secObs.observe(s); });
+
+  /* ===== Portfolio ===== */
+  const works = [
+    {t:'Modular Kitchen',c:'Kitchen',v:'https://res.cloudinary.com/ofiyq8xe/video/upload/v1793981032/23332f509d467dc8e01c8fd25722ba4d.mp4'},
+    {t:'Grand Living Room',c:'Living',v:'https://res.cloudinary.com/ofiyq8xe/video/upload/v1793981146/actinse_ssspin.io_1793981096.mp4'},
+    {t:'Master Bedroom',c:'Bedroom',v:'https://res.cloudinary.com/ofiyq8xe/video/upload/v1793981244/lougenebinghay_ssspin.io_1793981226.mp4'},
+    {t:'Coffered False Ceiling',c:'Ceiling',v:'https://res.cloudinary.com/ofiyq8xe/video/upload/v1793981461/mudassarhussain0188_ssspin.io_1793981408.mp4'},
+    {t:'TV Unit Wall',c:'Living',v:'https://res.cloudinary.com/ofiyq8xe/video/upload/v1793981605/homecraafts_ssspin.io_1793981588.mp4'},
+    {t:'Modular Walk-in Wardrobe',c:'Bedroom',v:'https://res.cloudinary.com/ofiyq8xe/video/upload/v1793981767/IRYSTAVARESINTERIORES_ssspin.io_1793981708.mp4'}
+  ];
+  const grid = $('#grid');
+  grid.innerHTML = works.map((w, i) => `
+    <article class="tile" data-c="${w.c}" data-i="${i}" tabindex="0" role="button" aria-label="View ${w.t}">
+      <video src="${w.v}" muted loop playsinline preload="metadata"></video>
+      <span class="idx">0${i + 1}</span>
+      <div class="meta"><div><small>${w.c}</small><b>${w.t}</b></div><span class="play" aria-hidden="true">▶</span></div>
+    </article>`).join('');
+
+  // play tile videos only while visible (saves battery and bandwidth)
+  const vidObs = new IntersectionObserver(es => es.forEach(e => {
+    const v = $('video', e.target);
+    e.target.classList.toggle('vis', e.isIntersecting);
+    if (e.isIntersecting) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause();
+  }), { threshold: .25 });
+  $$('.tile').forEach(t => vidObs.observe(t));
+
+  // 3D tilt
+  if (finePointer && !reduced) {
+    $$('.tile').forEach(t => {
+      t.addEventListener('pointermove', e => {
+        const r = t.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        t.style.setProperty('--ry', (x * 9) + 'deg'); t.style.setProperty('--rx', (-y * 9) + 'deg');
+      });
+      t.addEventListener('pointerleave', () => { t.style.setProperty('--rx', '0deg'); t.style.setProperty('--ry', '0deg'); });
+    });
+  }
+
+  // Filters
+  $('#filters').addEventListener('click', e => {
+    const b = e.target.closest('.chip'); if (!b) return;
+    const f = b.dataset.f;
+    $$('.chip').forEach(c => c.classList.toggle('on', c === b));
+    grid.classList.toggle('filtered', f !== 'all');
+    $$('.tile', grid).forEach(t => {
+      const show = f === 'all' || t.dataset.c === f;
+      t.style.display = show ? '' : 'none';
+    });
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  });
+
+  // Lightbox with prev/next
+  const lb = $('#lb'), lbContent = $('#lbcontent');
+  let current = 0, list = [];
+  const visibleIdx = () => $$('.tile', grid).filter(t => t.style.display !== 'none').map(t => Number(t.dataset.i));
+  const show = () => {
+    const w = works[list[current]];
+    lbContent.innerHTML = `<video id="lbvideo" src="${w.v}" autoplay muted loop controls playsinline></video>`;
+    $('#lbcap').textContent = w.t;
+    $('#lbcount').textContent = String(current + 1).padStart(2, '0') + ' / ' + String(list.length).padStart(2, '0');
+  };
+  const openAt = i => { list = visibleIdx(); current = Math.max(0, list.indexOf(i)); show(); lb.classList.remove('hidden'); document.body.style.overflow = 'hidden'; $('#lbclose').focus(); };
+  const closeLb = () => { lb.classList.add('hidden'); lbContent.innerHTML = ''; document.body.style.overflow = ''; };
+  const step = d => { current = (current + d + list.length) % list.length; show(); };
+  grid.addEventListener('click', e => { const t = e.target.closest('.tile'); if (t) openAt(Number(t.dataset.i)); });
+  grid.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { const t = e.target.closest('.tile'); if (t) { e.preventDefault(); openAt(Number(t.dataset.i)); } } });
+  $('#lbclose').addEventListener('click', closeLb);
+  $('#lbprev').addEventListener('click', () => step(-1));
+  $('#lbnext').addEventListener('click', () => step(1));
+  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+  document.addEventListener('keydown', e => {
+    if (lb.classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+
+  /* ===== Reviews ===== */
+  const reviews = [
+    ['Ravi', 'Our kitchen was finished on schedule and looks better than the design we approved.'],
+    ['Client feedback', 'Exceptional attention to detail and a smooth interior execution experience.'],
+    ['Customer review', 'Thoughtful design choices and a beautiful finish throughout our home.']
+  ];
+  $('#rev').innerHTML = reviews.map(r => `<figure class="glass rcard m-0" data-rv><div class="q" aria-hidden="true">“</div><p class="gold-text text-xl font-bold m-0" aria-label="5 stars">★★★★★</p><blockquote>${r[1]}</blockquote><figcaption class="font-display gold-text text-lg font-bold tracking-wider">${r[0]}</figcaption></figure>`).join('');
+
+  /* ===== Cursor: orb + dotted trail + dotted ring + direction pointer ===== */
+  const orb = $('#orb'), ring = $('#ring'), dir = $('#dir');
+  if (finePointer && !reduced) {
+    const dots = [];
+    for (let i = 0; i < 8; i++) {
+      const d = document.createElement('div'); d.className = 'trail'; d.style.opacity = String(1 - i / 9);
+      document.body.appendChild(d); dots.push({ el: d, x: innerWidth / 2, y: innerHeight / 2 });
+    }
+    let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, ang = 0, tAng = 0, last = 0, raf = 0;
+    addEventListener('mousemove', e => {
+      const dx = e.clientX - mx, dy = e.clientY - my;
+      if (dx * dx + dy * dy > 4) { tAng = Math.atan2(dy, dx) * 180 / Math.PI; last = performance.now(); }
+      mx = e.clientX; my = e.clientY;
+      orb.style.left = mx + 'px'; orb.style.top = my + 'px';
+    }, { passive: true });
+    const loop = () => {
+      rx += (mx - rx) * .16; ry += (my - ry) * .16;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      let x = mx, y = my;
+      dots.forEach(p => { p.x += (x - p.x) * .32; p.y += (y - p.y) * .32; p.el.style.left = p.x + 'px'; p.el.style.top = p.y + 'px'; x = p.x; y = p.y; });
+      const diff = ((tAng - ang + 540) % 360) - 180; ang += diff * .2;
+      dir.style.left = mx + 'px'; dir.style.top = my + 'px';
+      dir.style.transform = 'translate(-50%,-50%) rotate(' + ang + 'deg)';
+      dir.style.opacity = (performance.now() - last < 200) ? 1 : 0;
+      raf = requestAnimationFrame(loop);
+    };
+    loop();
+    document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(raf); else loop(); });
+    document.addEventListener('pointerover', e => { ring.classList.toggle('big', !!e.target.closest('a,button,.tile,.chip,.cbtn')); });
+
+    // magnetic buttons
+    $$('.mag').forEach(b => {
+      b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .22}px,${(e.clientY - r.top - r.height / 2) * .35}px)`; });
+      b.addEventListener('pointerleave', () => { b.style.transform = ''; });
+      b.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s cubic-bezier(.16,1,.3,1)';
+    });
+  } else { orb.style.display = 'none'; ring.style.display = 'none'; dir.style.display = 'none'; }
+
+
+  /* ===== Gold dust ===== */
+  (() => {
+    const cv = $('#dust'); if (!cv || reduced) return;
+    const ctx = cv.getContext('2d'); let W, H, dpr, ps = [], raf = 0, px = 0, py = 0;
+    const size = () => { dpr = Math.min(devicePixelRatio || 1, 2); W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr; };
+    size(); addEventListener('resize', size);
+    const N = innerWidth < 700 ? 38 : 80;
+    const mk = (init) => ({ x: Math.random() * W, y: init ? Math.random() * H : H + 20, r: (Math.random() * 1.7 + .4) * dpr, s: (Math.random() * .35 + .08) * dpr, a: Math.random() * .6 + .2, ph: Math.random() * 6.28, z: Math.random() * .8 + .2 });
+    for (let i = 0; i < N; i++) ps.push(mk(true));
+    addEventListener('mousemove', e => { px = (e.clientX / innerWidth - .5); py = (e.clientY / innerHeight - .5); }, { passive: true });
+    const draw = t => {
+      ctx.clearRect(0, 0, W, H); ctx.globalCompositeOperation = 'lighter';
+      ps.forEach((p, i) => {
+        p.y -= p.s * p.z; p.x += Math.sin(t / 1800 + p.ph) * .25 * dpr;
+        if (p.y < -20) ps[i] = mk(false);
+        const x = p.x + px * 40 * p.z * dpr, y = p.y + py * 24 * p.z * dpr;
+        const tw = .55 + .45 * Math.sin(t / 600 + p.ph);
+        const g = ctx.createRadialGradient(x, y, 0, x, y, p.r * 5);
+        g.addColorStop(0, `rgba(255,236,160,${p.a * tw})`); g.addColorStop(1, 'rgba(212,175,55,0)');
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, p.r * 5, 0, 6.283); ctx.fill();
+      });
+      raf = requestAnimationFrame(draw);
+    };
+    raf = requestAnimationFrame(draw);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(raf); else raf = requestAnimationFrame(draw); });
+  })();
+
+  /* ===== Preloader and animation ===== */
+  const preloader = $('#preloader'), prog = $('.pl-bar'), pct = $('.pl-pct');
+  let started = false;
+
+  const heroIn = () => {
+    if (!window.gsap) return;
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+    tl.to('.hero-kicker', { opacity: 1, y: 0, duration: 1 }, 0)
+      .to(arChars, { y: 0, duration: 1.5, stagger: .09 }, .1)
+      .to(subChars, { y: 0, duration: 1.2, stagger: .035 }, .45)
+      .to('[data-hero]', { opacity: 1, y: 0, duration: 1.1, stagger: .12 }, .9);
+  };
+
+  const scrollAnims = () => {
+    if (!window.gsap || !window.ScrollTrigger || reduced) { $$('[data-rv]').forEach(e => e.style.opacity = 1); return; }
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to('#bg-video', { scale: 1.16, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: .6 } });
+
+    $$('[data-rv]').forEach(el => {
+      gsap.fromTo(el, { y: 46, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: 'expo.out', clearProps: 'transform', scrollTrigger: { trigger: el, start: 'top 92%', once: true } });
+    });
+
+    // parallax photo and hero depth
+    gsap.to('#aboutPhoto img', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '#aboutPhoto', start: 'top bottom', end: 'bottom top', scrub: true } });
+    gsap.to('.hero-content', { yPercent: 14, opacity: .25, ease: 'none', scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to('.year-plate', { y: -20, ease: 'none', scrollTrigger: { trigger: '#about', start: 'top bottom', end: 'bottom top', scrub: true } });
+    gsap.to('.seal', { y: 18, ease: 'none', scrollTrigger: { trigger: '#about', start: 'top bottom', end: 'bottom top', scrub: true } });
+
+    $$('.count').forEach(el => {
+      const o = { v: 0 };
+      gsap.to(o, { v: Number(el.dataset.n) || 0, duration: 2, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 92%', once: true }, onUpdate: () => el.textContent = Math.round(o.v) });
+    });
+  };
+
+  const run = () => {
+    if (started) return; started = true;
+    const done = () => { preloader.style.display = 'none'; preloader.setAttribute('aria-hidden', 'true'); heroIn(); scrollAnims(); };
+    if (!window.gsap || reduced) {
+      arChars.concat(subChars).forEach(c => c.style.transform = ''); $$('[data-hero]').forEach(e => e.style.opacity = 1);
+      preloader.style.display = 'none'; scrollAnims(); return;
+    }
+    const c = { v: 0 };
+    gsap.to(c, { v: 100, duration: 1.6, ease: 'power2.inOut', onUpdate: () => { const n = Math.round(c.v); prog.style.width = n + '%'; pct.textContent = n + '%'; },
+      onComplete: () => gsap.to(preloader, { opacity: 0, scale: 1.06, duration: .8, ease: 'power2.inOut', onComplete: done }) });
+  };
+  if (document.readyState === 'complete') run(); else addEventListener('load', run, { once: true });
+  setTimeout(run, 6000); // safety net if a slow asset blocks the load event
+})();
+</script>
+</body>
+</html>
