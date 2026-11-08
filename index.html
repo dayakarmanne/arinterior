@@ -8,6 +8,7 @@
 <meta name="description" content="Luxury interior design studio in Hyderabad with showrooms in Beeramguda and Gachibowli. Message your dreams, our care.">
 <meta property="og:title" content="AR Interior Designing">
 <meta property="og:description" content="Message your dreams, our care. Bespoke kitchens, wardrobes, ceilings and living spaces.">
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -302,6 +303,201 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
   .scroll-cue{display:none}
 }
 @media(min-width:1800px){html{font-size:17px}.wrap{max-width:1500px}}
+
+/* ===== v3: scroll-scrubbed cinematic video ===== */
+#bg-video-container{background:radial-gradient(circle at 50% 40%,#1a140a 0%,#0a0805 55%,#050505 100%)}
+#bg-video{opacity:0;transition:opacity 1s ease;pointer-events:none;-webkit-user-select:none;user-select:none;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+#bg-video.ready{opacity:1}
+#bg-video::-webkit-media-controls,#bg-video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
+#bg-video-container.novid #bg-video{opacity:0}
+
+/* ===== v4: transparent sections so the background video is the star ===== */
+#veil{background:
+  radial-gradient(130% 100% at 50% 45%,rgba(5,5,5,0) 0%,rgba(5,5,5,.2) 62%,rgba(5,5,5,.55) 100%),
+  linear-gradient(180deg,rgba(5,5,5,.4),rgba(5,5,5,0) 20%,rgba(5,5,5,0) 80%,rgba(5,5,5,.42))}
+#grain{opacity:.035}
+:root{--text:rgba(255,244,214,.92);--text-dim:rgba(255,244,214,.74)}
+
+/* every panel: see-through, no blur, just a hairline */
+.glass{background:linear-gradient(145deg,rgba(6,5,3,.2),rgba(6,5,3,.06));backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;border-color:rgba(243,220,138,.2)}
+.glass::before{opacity:.45}
+.marq{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;border-color:rgba(243,220,138,.18)}
+header.scrolled{background:rgba(6,5,3,.32);backdrop-filter:blur(10px) saturate(130%);-webkit-backdrop-filter:blur(10px) saturate(130%)}
+footer{background:linear-gradient(180deg,transparent,rgba(5,4,2,.6));backdrop-filter:none;-webkit-backdrop-filter:none;border-top-color:rgba(243,220,138,.16)}
+.cbtn{background:rgba(6,5,3,.14)}
+.facts{background:rgba(6,5,3,.16)}
+.chip,.hero-kicker,.btn-ghost{backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+
+/* About: no panel at all, just content floating over the film */
+#about .glass{background:none;border:0;box-shadow:none;padding:0;border-radius:0}
+#about .glass::before{display:none}
+/* Services: a clean hairline list */
+#services .glass{background:none;border:0;border-radius:0;box-shadow:none;padding-left:0;padding-right:0}
+#services .glass::before{display:none}
+#services .svc:first-child{border-top:1px solid var(--line)}
+#services .svc:last-child{border-bottom:1px solid var(--line)!important}
+.svc .ar{background:transparent}
+
+/* legibility without panels: soft shadows (solid text) and drop-shadows (metallic text) */
+p:not(.gold-text),li,small,blockquote,.svc h3,.step h3,.cbtn .cl b,.facts b,.nameplate b,.tile .meta small,.flink{text-shadow:0 1px 2px rgba(0,0,0,.55),0 2px 22px rgba(0,0,0,.6)}
+.cbtn:hover *,.chip:hover,.chip.on,.btn,.btn *{text-shadow:none}
+.gold-text,.split-h,.mono-sub{filter:drop-shadow(0 1px 3px rgba(0,0,0,.6)) drop-shadow(0 4px 22px rgba(0,0,0,.55))}
+.gold-text,.split-h .wi{text-shadow:none!important}
+/* hero fits short laptop screens: size by height too, hide the cue when there is no room */
+.mono{font-size:clamp(5rem,min(24vw,24vh),17rem)}
+@media(max-height:700px){.scroll-cue{display:none}}
+.marq-track span{text-shadow:0 2px 20px rgba(0,0,0,.7)}
+
+/* ===== animated text ===== */
+.split-h .w{display:inline-block;overflow:hidden;vertical-align:top;padding:.16em .05em .12em;margin:-.16em -.05em -.12em}
+.split-h .wi{display:inline-block;will-change:transform;transform-origin:0% 100%;
+  background:linear-gradient(120deg,#fff3c4 0%,#f3dc8a 22%,#d4af37 50%,#f3dc8a 72%,#8f6f12 100%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s linear infinite}
+.eyebrow::before{transform:scaleX(0);transform-origin:left;transition:transform 1.4s var(--ease) .25s}
+.eyebrow.in::before{transform:scaleX(1)}
+.svc .n,.svc h3,.svc p{transition:transform .7s var(--ease),color .5s}
+.svc:hover .n{transform:translateX(4px)}
+@media(prefers-reduced-motion:reduce){.split-h .wi{animation:none!important}}
+
+/* ===== v5: brighter gold typography for maximum readability ===== */
+:root{--text:#FFE9AC;--text-dim:rgba(255,230,160,.92);--gold-glow:#FFE27A;--gold-pale:#FFF3C2;--line:rgba(255,226,122,.3);--line-strong:rgba(255,226,122,.55)}
+body{font-weight:500}
+p:not(.gold-text),li,small,blockquote{font-weight:500}
+.lead{color:#FFF3C2;font-weight:500;font-size:clamp(1.4rem,2.3vw,1.8rem)}
+.eyebrow{color:#FFE27A;font-weight:600;font-size:.78rem}
+.nl{color:#FFEDB5;opacity:1;font-weight:600}
+.hero-kicker,.facts small,.nameplate small,.tile .meta small,.year-plate small,.scroll-cue,.pl-pct{color:#FFE27A;font-weight:600}
+.svc .n{color:#FFD65C;font-weight:600}
+.svc p,.step p,.facts b{color:#FFEFB8}
+.flink{color:#FFEDB5;opacity:1;font-weight:600}
+.cbtn .cl small{color:#FFE9AC}
+.marq-track span{color:#FFF1B8;font-weight:500}
+
+/* metallic text: remove the dark end-stop that made parts of words fade */
+.gold-text,.split-h .wi{background-image:linear-gradient(120deg,#fffbe0 0%,#ffe98f 25%,#f9cf4a 50%,#ffe98f 75%,#e8b52e 100%);background-size:220% 100%}
+.mono .ch{background-image:linear-gradient(170deg,#fffbe0 0%,#ffe98f 32%,#f9cf4a 64%,#d9a520 100%)}
+.year-plate b{background-image:linear-gradient(170deg,#fffbe0,#ffe98f 40%,#f9cf4a 72%,#e8b52e)}
+.step .no{-webkit-text-stroke:1.5px #FFD65C;opacity:1}
+.rcard .q{color:#FFD65C;opacity:.8}
+
+/* stronger separation from the video, still no panels */
+p:not(.gold-text),li,small,blockquote,.svc h3,.step h3,.cbtn .cl b,.facts b,.nameplate b,.tile .meta small,.flink,.nl,.eyebrow,.marq-track span{text-shadow:0 1px 2px rgba(0,0,0,.85),0 2px 10px rgba(0,0,0,.65),0 4px 28px rgba(0,0,0,.7)}
+.cbtn:hover *,.chip:hover,.chip.on,.btn,.btn *{text-shadow:none}
+.gold-text,.split-h,.mono-sub{filter:drop-shadow(0 1px 2px rgba(0,0,0,.8)) drop-shadow(0 3px 10px rgba(0,0,0,.55)) drop-shadow(0 6px 28px rgba(0,0,0,.55))}
+#veil{background-color:rgba(5,4,2,.14)}
+.glass{background:linear-gradient(145deg,rgba(6,5,3,.28),rgba(6,5,3,.12))}
+.chip,.btn-ghost{background:rgba(6,5,3,.38);border-color:rgba(255,226,122,.55)}
+.chip.on,.chip:hover{background:linear-gradient(135deg,#FFE98F,#d9a520);color:#0a0802}
+
+/* ===== v6: compact founder portrait with refined hover ===== */
+.about-grid{grid-template-columns:minmax(220px,.62fr) minmax(0,1.38fr)}
+.photo-wrap{max-width:300px;perspective:1000px}
+.photo-wrap::before{inset:-12px -12px 12px 12px;border-radius:20px;opacity:.5;transition:inset .8s var(--ease),opacity .8s,border-color .8s}
+.photo-wrap:hover::before{inset:-6px -6px 6px 6px;opacity:1;border-color:#FFE27A}
+.est-halo{inset:-18% -30%;opacity:.75;transition:opacity .8s}
+.photo-wrap:hover .est-halo{opacity:1}
+.about-photo{border-radius:20px;border:1px solid rgba(255,226,122,.45);transform:rotateX(var(--prx,0deg)) rotateY(var(--pry,0deg));transform-style:preserve-3d;transition:transform .5s var(--ease),border-color .6s,box-shadow .7s var(--ease);box-shadow:0 22px 60px rgba(0,0,0,.55)}
+.about-photo:hover{border-color:#FFE27A;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(255,226,122,.28)}
+.about-photo img{transition:scale 1.2s var(--ease),filter .8s;filter:saturate(1.02) contrast(1.02)}
+.about-photo:hover img{scale:1.07;filter:saturate(1.12) contrast(1.05)}
+/* pointer-following glare */
+.about-photo::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .6s;background:radial-gradient(circle at var(--mx,50%) var(--my,30%),rgba(255,243,194,.28),transparent 55%)}
+.about-photo:hover::before{opacity:1}
+/* light sweep only on hover */
+.shine{animation:none;transform:translateX(-120%)}
+.photo-wrap:hover .shine{animation:shineOnce 1.5s var(--ease) 1}
+@keyframes shineOnce{from{transform:translateX(-120%)}to{transform:translateX(120%)}}
+/* name plate: lifts and underlines on hover */
+.nameplate{left:1.1rem;bottom:1rem;transition:transform .7s var(--ease)}
+.nameplate b{font-size:.95rem}
+.nameplate::after{content:"";display:block;height:1px;width:0;margin-top:.55rem;background:linear-gradient(90deg,#FFE27A,transparent);transition:width .9s var(--ease)}
+.about-photo:hover .nameplate{transform:translateY(-6px)}
+.about-photo:hover .nameplate::after{width:70%}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr}.photo-wrap{max-width:250px}}
+@media(max-width:767px){.photo-wrap{max-width:230px}}
+@media(hover:none){.about-photo{transform:none}}
+@media(prefers-reduced-motion:reduce){.about-photo{transform:none!important}.photo-wrap:hover .shine{animation:none}}
+
+/* ===== v7: light-grey, low-opacity reading layer behind every text block (video stays visible) =====
+   Tune the whole site from here: raise the last number of --layer for more separation, lower it for more video. */
+:root{--layer:rgba(150,148,142,.17);--layer-line:rgba(255,255,255,.15)}
+
+/* cards and panels */
+.glass{background:var(--layer);border:1px solid var(--layer-line);box-shadow:0 12px 40px rgba(0,0,0,.18)}
+.glass::before{opacity:.3}
+
+/* section text blocks that had no panel get one */
+#about .about-grid > div:last-child,
+#services .wrap > div:first-child,
+#portfolio .wrap > div:first-child,
+#portfolio .wrap > p,
+#process .wrap > .text-center,
+#reviews .wrap > .text-center,
+#branches .wrap > .text-center{
+  background:var(--layer);border:1px solid var(--layer-line);border-radius:24px;padding:1.6rem 1.9rem;box-shadow:0 12px 40px rgba(0,0,0,.18)}
+#about .about-grid > div:last-child{padding:2.2rem 2.4rem}
+#services .wrap > div:first-child,#portfolio .wrap > div:first-child{margin-bottom:1.5rem}
+#portfolio .wrap > div:first-child + #filters,#portfolio #filters{margin-top:1.5rem;margin-bottom:1.5rem}
+/* centered heading blocks hug their text instead of spanning the page */
+#process .wrap > .text-center,#reviews .wrap > .text-center,#branches .wrap > .text-center,#portfolio .wrap > p{width:fit-content;max-width:100%;margin-left:auto;margin-right:auto}
+#portfolio .wrap > p{padding:.9rem 1.5rem;border-radius:999px;margin-top:1.6rem}
+
+/* services list keeps its hairlines inside a layer */
+#services .glass{background:var(--layer);border:1px solid var(--layer-line);border-radius:24px;padding:.3rem 1.5rem}
+#services .svc:first-child{border-top:0}
+#services .svc:last-child{border-bottom:0!important}
+
+/* about: the facts strip sits inside the layer, so it only needs a hairline */
+.facts{background:transparent;border-color:var(--layer-line)}
+
+/* hero: a soft grey halo behind the title block (no box over the cinematic shot) */
+#home .hero-content::before{content:"";position:absolute;inset:-6% -14%;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(150,148,142,.2),rgba(150,148,142,.07) 65%,transparent)}
+
+/* ticker, header, footer */
+.marq{background:var(--layer);border-color:var(--layer-line)}
+header.scrolled{background:rgba(135,133,127,.2);backdrop-filter:blur(10px) saturate(130%);-webkit-backdrop-filter:blur(10px) saturate(130%);border-bottom-color:var(--layer-line)}
+footer{background:var(--layer);border-top-color:var(--layer-line)}
+.cbtn{background:rgba(255,255,255,.06);border-color:var(--layer-line)}
+
+@media(max-width:767px){
+  #about .about-grid > div:last-child{padding:1.5rem 1.3rem}
+  #services .wrap > div:first-child,#portfolio .wrap > div:first-child,#process .wrap > .text-center,#reviews .wrap > .text-center,#branches .wrap > .text-center{padding:1.2rem 1.2rem}
+  #services .glass{padding:.2rem 1rem}
+}
+
+/* ===== v8: black reading layer (higher opacity) + clean, professional colour system ===== */
+:root{
+  --layer:rgba(6,6,6,.56);--layer-line:rgba(255,255,255,.13);
+  --text:#F4EFE4;--text-dim:#D8D1BF;
+  --accent:#E9C25B;          /* labels, numbers, small gold accents */
+  --head:#FFF7E0;            /* card titles / strong text */
+}
+.glass,#about .about-grid > div:last-child,#services .wrap > div:first-child,#portfolio .wrap > div:first-child,#portfolio .wrap > p,
+#process .wrap > .text-center,#reviews .wrap > .text-center,#branches .wrap > .text-center,#services .glass,.marq,footer{background:var(--layer);border-color:var(--layer-line)}
+header.scrolled{background:rgba(6,6,6,.66);backdrop-filter:blur(12px) saturate(120%);-webkit-backdrop-filter:blur(12px) saturate(120%);border-bottom-color:var(--layer-line)}
+#home .hero-content::before{background:radial-gradient(closest-side,rgba(0,0,0,.5),rgba(0,0,0,.2) 62%,transparent)}
+.cbtn{background:rgba(255,255,255,.05)}
+
+/* body copy: warm ivory, crisp */
+body,p:not(.gold-text),li,small,blockquote{color:var(--text)}
+.svc p,.step p,.cbtn .cl small,.rcard figcaption small{color:var(--text-dim)}
+.lead{color:var(--head)}
+.lead .fw{display:inline-block;will-change:transform}
+/* titles inside cards */
+.svc h3,.step h3,.facts b,.cbtn .cl b,.nameplate b,.rcard blockquote{color:var(--head)}
+.svc:hover h3{color:#FFE27A}
+/* gold used sparingly for labels and numbers */
+.eyebrow,.hero-kicker,.facts small,.nameplate small,.tile .meta small,.scroll-cue,.pl-pct,.svc .n{color:var(--accent)}
+.nl,.flink{color:var(--text);opacity:.92}
+.nl:hover,.nl.act,.flink:hover{color:#FFE27A;opacity:1}
+.marq-track span{color:#F2D27A}
+.step .no{-webkit-text-stroke:1.5px var(--accent)}
+
+/* the black layer does the heavy lifting, so shadows can be light and clean */
+p:not(.gold-text),li,small,blockquote,.svc h3,.step h3,.cbtn .cl b,.facts b,.nameplate b,.tile .meta small,.flink,.nl,.eyebrow,.marq-track span{text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.cbtn:hover *,.chip:hover,.chip.on,.btn,.btn *{text-shadow:none}
+.gold-text,.split-h,.mono-sub{filter:drop-shadow(0 1px 2px rgba(0,0,0,.7)) drop-shadow(0 4px 16px rgba(0,0,0,.45))}
+.tile .meta b{color:var(--head)}
 </style>
 </head>
 <body>
@@ -310,7 +506,7 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
 
 <!-- Cinematic background -->
 <div id="bg-video-container" aria-hidden="true">
-  <video id="bg-video" src="https://res.cloudinary.com/ofiyq8xe/video/upload/v1794072104/Drone_flying_through_architectur__aa12d4df_1080p.mp4" autoplay muted loop playsinline preload="auto"></video>
+  <video id="bg-video" muted playsinline preload="auto" disablepictureinpicture disableremoteplayback tabindex="-1" aria-hidden="true"></video>
 </div>
 <div id="veil" aria-hidden="true"></div>
 <canvas id="dust" aria-hidden="true"></canvas>
@@ -390,14 +586,6 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
           <div class="shine" aria-hidden="true"></div>
           <div class="nameplate"><b>Mr. Manikanta</b><small>Founder &amp; CEO</small></div>
         </div>
-        <div class="year-plate" aria-label="Established January 2024"><small>Established</small><b>2024</b><small>January</small></div>
-        <div class="seal" aria-hidden="true">
-          <svg viewBox="0 0 120 120"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset=".5" stop-color="#d4af37"/><stop offset="1" stop-color="#8f6f12"/></linearGradient><path id="sc" d="M60,60 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0"/></defs>
-          <circle cx="60" cy="60" r="58" fill="rgba(8,6,2,.84)" stroke="url(#sg)" stroke-width="1.5"/>
-          <circle cx="60" cy="60" r="32" fill="none" stroke="rgba(243,220,138,.5)" stroke-width="1" stroke-dasharray="1 4" stroke-linecap="round"/>
-          <g class="rot"><text><textPath href="#sc">AR INTERIOR DESIGNING ✦ EST. 2024 ✦ </textPath></text></g>
-          <text x="60" y="69" text-anchor="middle" style="font-family:'Cinzel',serif;font-size:22px;font-weight:900;fill:url(#sg)">AR</text></svg>
-        </div>
       </div>
       <div>
         <p class="eyebrow" data-rv>The people behind the spaces</p>
@@ -406,7 +594,6 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
         <p class="mt-5" data-rv>From modular kitchens and custom wardrobes to elegant ceilings and thoughtfully designed living spaces, our team brings together practical planning, refined aesthetics and careful execution.</p>
         <div class="facts" data-rv><div><small>Founder &amp; CEO</small><b>Mr. Manikanta</b></div><div><small>Established</small><b>January 2024</b></div><div><small>Studios</small><b>Beeramguda · Gachibowli</b></div></div>
         <p class="mt-5" data-rv>With a founder-led approach, <strong class="gold-text">Mr. Manikanta</strong> guides the studio's vision and commitment to thoughtful design, dependable service and quality craftsmanship. We welcome clients at our Beeramguda and Gachibowli locations.</p>
-        <div class="orbit" aria-label="Our design values" data-rv><span>✦ Personalised design</span><span>✦ Fine craftsmanship</span><span>✦ Functional spaces</span><span>✦ Client-first service</span></div>
         <a href="#contact" class="btn mag mt-9" data-rv>Discuss your project</a>
       </div>
     </div>
@@ -561,9 +748,47 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
   const subChars = split($('#monoSub'));
   if (!reduced) {
     // keep letters hidden until preloader leaves
-    arChars.concat(subChars).forEach(c => c.style.transform = 'translateY(115%)');
-    $$('[data-hero]').forEach(e => e.style.opacity = 0);
+    arChars.concat(subChars).forEach(c => c.style.transform = 'translateY(-115%)');
+    $$('[data-hero]').forEach(e => { e.style.opacity = 0; e.style.transform = 'translateY(-40px)'; });
   }
+
+
+  /* ===== Animated headings: masked word reveal (animation runs in scrollAnims) ===== */
+  $$('.h2').forEach(h => {
+    const txt = h.textContent.trim();
+    h.setAttribute('aria-label', txt);
+    h.classList.remove('gold-text'); h.classList.add('split-h');
+    h.removeAttribute('data-rv');
+    h.textContent = '';
+    const words = txt.split(/\s+/);
+    words.forEach((w, i) => {
+      const o = document.createElement('span'); o.className = 'w'; o.setAttribute('aria-hidden', 'true');
+      const n = document.createElement('span'); n.className = 'wi'; n.textContent = w;
+      o.appendChild(n); h.appendChild(o);
+      if (i < words.length - 1) h.appendChild(document.createTextNode(' '));
+    });
+  });
+  $$('.svc').forEach(e => e.setAttribute('data-rv', ''));
+
+  /* lead paragraphs: words that drop in one after another */
+  $$('.lead').forEach(p => {
+    const words = p.textContent.trim().split(/\s+/);
+    p.setAttribute('aria-label', words.join(' '));
+    p.removeAttribute('data-rv'); p.textContent = '';
+    words.forEach((w, i) => {
+      const n = document.createElement('span'); n.className = 'fw'; n.setAttribute('aria-hidden', 'true'); n.textContent = w;
+      p.appendChild(n); if (i < words.length - 1) p.appendChild(document.createTextNode(' '));
+    });
+  });
+  const svcList = $('#services .glass'); if (svcList) svcList.removeAttribute('data-rv');   // rows drop in individually
+
+  /* eyebrow hairlines draw themselves when they enter the viewport */
+  (() => {
+    const eb = $$('.eyebrow');
+    if (!('IntersectionObserver' in window)) { eb.forEach(e => e.classList.add('in')); return; }
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .6 });
+    eb.forEach(e => io.observe(e));
+  })();
 
   /* ===== Mobile nav ===== */
   const menuBtn = $('#menuBtn'), menu = $('#menu');
@@ -713,6 +938,21 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
   } else { orb.style.display = 'none'; ring.style.display = 'none'; dir.style.display = 'none'; }
 
 
+
+  /* ===== Founder portrait: gentle 3D tilt + glare following the pointer ===== */
+  (() => {
+    const ph = $('#aboutPhoto'); if (!ph || !finePointer || reduced) return;
+    ph.addEventListener('pointermove', e => {
+      const r = ph.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      ph.style.setProperty('--pry', ((x - .5) * 10).toFixed(2) + 'deg');
+      ph.style.setProperty('--prx', ((.5 - y) * 10).toFixed(2) + 'deg');
+      ph.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+      ph.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+    });
+    ph.addEventListener('pointerleave', () => { ph.style.setProperty('--pry', '0deg'); ph.style.setProperty('--prx', '0deg'); });
+  })();
+
   /* ===== Gold dust ===== */
   (() => {
     const cv = $('#dust'); if (!cv || reduced) return;
@@ -740,6 +980,96 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
     document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(raf); else raf = requestAnimationFrame(draw); });
   })();
 
+  /* ===== Scroll-scrubbed cinematic video =====
+     Scrolling drives video.currentTime. The video never plays, never loops, and freezes the moment scrolling stops. */
+  const VIDEO_SRC = 'https://res.cloudinary.com/ofiyq8xe/video/upload/v1794104915/Drone_flying_through_luxury_inte__982031ee_1080p.mp4';
+  const SCRUB_SMOOTH = 0.14;   // 0.05 = very silky/slow, 0.3 = snappy
+  const SEEK_STEP = 1 / 45;    // minimum time change before issuing another seek
+  const videoReady = (() => new Promise(resolve => {
+    const v = $('#bg-video'), box = $('#bg-video-container');
+    if (!v) { resolve(); return; }
+    const saveData = !!(navigator.connection && navigator.connection.saveData);
+    const stillOnly = reduced || saveData;                // static frame instead of scrubbing
+    const small = innerWidth < 768;
+    // keyframe-dense (and on phones, smaller) rendition for precise seeking; falls back to the original file if unavailable
+    const FAST = VIDEO_SRC.replace('/video/upload/', '/video/upload/vc_h264,ki_0.2' + (small ? ',w_720' : '') + '/');
+    let usingFast = !stillOnly, active = false, dur = 0, target = 0, cur = 0, last = -1, seeking = false, raf = 0, seekTimer = 0, done = false;
+    const finish = () => { if (!done) { done = true; resolve(); } };
+
+    const progress = () => {
+      const h = document.documentElement.scrollHeight - innerHeight;
+      return h > 0 ? Math.min(1, Math.max(0, scrollY / h)) : 0;
+    };
+    const kick = () => { if (active && !raf && !document.hidden) raf = requestAnimationFrame(tick); };
+    const onScroll = () => { if (!active) return; target = progress() * dur; kick(); };
+    const tick = () => {
+      raf = 0;
+      if (!active || document.hidden) return;
+      cur += (target - cur) * SCRUB_SMOOTH;
+      if (Math.abs(target - cur) < 0.003) cur = target;
+      if (!seeking && (Math.abs(cur - last) >= SEEK_STEP || (cur === target && cur !== last))) {
+        seeking = true; last = cur;
+        try { v.currentTime = Math.min(Math.max(cur, 0), Math.max(dur - 0.04, 0)); } catch (e) { seeking = false; }
+        clearTimeout(seekTimer); seekTimer = setTimeout(() => { seeking = false; kick(); }, 300); // guard if 'seeked' never fires
+      }
+      if (cur !== target || seeking) raf = requestAnimationFrame(tick);
+    };
+    const onSeeked = () => { seeking = false; clearTimeout(seekTimer); if (cur !== last || cur !== target) kick(); };
+    const onVis = () => { if (!document.hidden) { onScroll(); kick(); } };
+    const keepPaused = () => { try { v.pause(); } catch (e) {} };
+
+    const activate = () => {
+      if (active) return;
+      dur = v.duration;
+      if (!isFinite(dur) || dur <= 0) return;
+      v.loop = false; v.autoplay = false;
+      if (stillOnly) {            // reduced motion / data saver: one calm frozen frame, no scrubbing
+        try { v.currentTime = dur * 0.3; } catch (e) {}
+        v.classList.add('ready'); finish(); return;
+      }
+      active = true;
+      v.classList.add('ready');
+      cur = target = progress() * dur;
+      try { v.currentTime = cur; } catch (e) {}
+      last = cur;
+      if (!finePointer) {         // touch browsers: prime the decoder once, then freeze immediately
+        const p = v.play(); if (p && p.then) p.then(keepPaused).catch(() => {});
+      }
+      finish();
+    };
+
+    v.muted = true; v.defaultMuted = true; v.loop = false; v.autoplay = false;
+    v.addEventListener('play', keepPaused);          // nothing may ever play it
+    v.addEventListener('ended', keepPaused);
+    v.addEventListener('seeked', onSeeked);
+    v.addEventListener('loadeddata', activate);
+    v.addEventListener('loadedmetadata', () => { if (v.readyState >= 2) activate(); });
+    v.addEventListener('error', () => {
+      if (usingFast) { usingFast = false; v.src = VIDEO_SRC; v.load(); }   // optimized rendition unavailable: use the original
+      else { box.classList.add('novid'); finish(); }                          // no video at all: elegant dark backdrop remains
+    });
+
+    if (!stillOnly) {
+      addEventListener('scroll', onScroll, { passive: true });
+      addEventListener('resize', onScroll, { passive: true });
+      document.addEventListener('visibilitychange', onVis);
+      if (window.ResizeObserver) { const ro = new ResizeObserver(onScroll); ro.observe(document.body); window.__scrubRO = ro; }
+    }
+    // cleanup of listeners, frames and decoder memory
+    addEventListener('pagehide', () => {
+      cancelAnimationFrame(raf); clearTimeout(seekTimer); active = false;
+      removeEventListener('scroll', onScroll); removeEventListener('resize', onScroll);
+      document.removeEventListener('visibilitychange', onVis);
+      if (window.__scrubRO) window.__scrubRO.disconnect();
+      try { v.removeAttribute('src'); v.load(); } catch (e) {}
+    });
+
+    v.preload = stillOnly ? 'metadata' : 'auto';
+    v.src = usingFast ? FAST : VIDEO_SRC;
+    v.load();
+    setTimeout(finish, 4500);     // never hold the preloader hostage on a slow network
+  }))();
+
   /* ===== Preloader and animation ===== */
   const preloader = $('#preloader'), prog = $('.pl-bar'), pct = $('.pl-pct');
   let started = false;
@@ -757,17 +1087,33 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
     if (!window.gsap || !window.ScrollTrigger || reduced) { $$('[data-rv]').forEach(e => e.style.opacity = 1); return; }
     gsap.registerPlugin(ScrollTrigger);
 
-    gsap.to('#bg-video', { scale: 1.16, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: .6 } });
+    // blocks that enter together cascade in with a stagger
+    const rv = $$('[data-rv]');
+    gsap.set(rv, { y: -60, opacity: 0 });
+    ScrollTrigger.batch(rv, {
+      start: 'top 92%', once: true, interval: .1, batchMax: 6,
+      onEnter: b => gsap.to(b, { y: 0, opacity: 1, duration: 1.4, ease: 'power4.out', stagger: .12, clearProps: 'transform' })
+    });
 
-    $$('[data-rv]').forEach(el => {
-      gsap.fromTo(el, { y: 46, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, ease: 'expo.out', clearProps: 'transform', scrollTrigger: { trigger: el, start: 'top 92%', once: true } });
+    // headings: words rise out of a mask, one after another
+    $$('.split-h').forEach(h => {
+      const ws = $$('.wi', h);
+      gsap.set(ws, { yPercent: -118, rotate: -5 });
+      ScrollTrigger.create({ trigger: h, start: 'top 90%', once: true,
+        onEnter: () => gsap.to(ws, { yPercent: 0, rotate: 0, duration: 1.2, ease: 'back.out(1.3)', stagger: .09 }) });
     });
 
     // parallax photo and hero depth
     gsap.to('#aboutPhoto img', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '#aboutPhoto', start: 'top bottom', end: 'bottom top', scrub: true } });
     gsap.to('.hero-content', { yPercent: 14, opacity: .25, ease: 'none', scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: true } });
-    gsap.to('.year-plate', { y: -20, ease: 'none', scrollTrigger: { trigger: '#about', start: 'top bottom', end: 'bottom top', scrub: true } });
-    gsap.to('.seal', { y: 18, ease: 'none', scrollTrigger: { trigger: '#about', start: 'top bottom', end: 'bottom top', scrub: true } });
+
+    // lead paragraphs: each word falls and settles
+    $$('.lead').forEach(p => {
+      const ws = $$('.fw', p);
+      gsap.set(ws, { y: -42, opacity: 0 });
+      ScrollTrigger.create({ trigger: p, start: 'top 90%', once: true,
+        onEnter: () => gsap.to(ws, { y: 0, opacity: 1, duration: 1, ease: 'power3.out', stagger: .035 }) });
+    });
 
     $$('.count').forEach(el => {
       const o = { v: 0 };
@@ -784,7 +1130,7 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
     }
     const c = { v: 0 };
     gsap.to(c, { v: 100, duration: 1.6, ease: 'power2.inOut', onUpdate: () => { const n = Math.round(c.v); prog.style.width = n + '%'; pct.textContent = n + '%'; },
-      onComplete: () => gsap.to(preloader, { opacity: 0, scale: 1.06, duration: .8, ease: 'power2.inOut', onComplete: done }) });
+      onComplete: () => videoReady.then(() => gsap.to(preloader, { opacity: 0, scale: 1.06, duration: .8, ease: 'power2.inOut', onComplete: done })) });
   };
   if (document.readyState === 'complete') run(); else addEventListener('load', run, { once: true });
   setTimeout(run, 6000); // safety net if a slow asset blocks the load event
