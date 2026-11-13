@@ -312,8 +312,10 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
 <canvas id="dust" aria-hidden="true"></canvas>
 <div id="grain" aria-hidden="true"></div>
 
-<!-- Background Audio -->
-<audio id="bg-audio" src="https://res.cloudinary.com/ofiyq8xe/video/upload/v1794574910/atlasaudio-chinese-traditional-617551.mp3" loop preload="auto" playsinline></audio>
+<!-- Background Audio (No crossorigin attribute so Cloudinary MP3 streams without CORS block) -->
+<audio id="bg-audio" preload="auto" loop playsinline>
+  <source src="https://res.cloudinary.com/ofiyq8xe/video/upload/v1794574910/atlasaudio-chinese-traditional-617551.mp3" type="audio/mpeg">
+</audio>
 
 <!-- Audio Toggle FAB with Dynamic Text & Icons (Default: "feeling the music") -->
 <button id="audiofab" type="button" aria-label="Toggle ambient music" title="Click to toggle background music">
@@ -325,9 +327,9 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
   <span id="audio-text">feeling the music</span>
 </button>
 
-<!-- Dedicated IIFE: Auto-plays after 3 seconds + Toggles "feeling the music" / "feel the music" -->
+<!-- Dedicated IIFE: Plays immediately on initial touch anywhere or scroll + Toggles on button click -->
 <script>
-(function initDelayedAudioEngine() {
+(function initTouchOrScrollAudio() {
   'use strict';
 
   const audio = document.getElementById('bg-audio');
@@ -341,14 +343,15 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
   const SVG_PAUSED  = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>';
 
   // Default state is ON ("feeling the music")
-  let userWantsMusic = true;
-  let threeSecElapsed = false;
+  let isMusicOn = true;
+  let audioUnlocked = false;
+  let audioCtx = null;
 
-  audio.volume = 0.45;
+  audio.volume = 0.5;
   audio.loop = true;
 
-  function updateUI(isPlaying) {
-    if (isPlaying) {
+  function renderUI(playing) {
+    if (playing) {
       icon.innerHTML = SVG_PLAYING;
       label.textContent = 'feeling the music';
       btn.classList.remove('paused');
@@ -361,96 +364,111 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
     }
   }
 
-  // Set default initial UI state: "feeling the music"
-  updateUI(true);
+  // Set initial UI to "feeling the music"
+  renderUI(true);
 
-  const unlockEvents = ['pointerdown', 'touchstart', 'mousedown', 'keydown', 'scroll', 'wheel', 'mousemove'];
+  // Events that trigger music on initial touch anywhere or scroll
+  const triggerEvents = [
+    'pointerdown', 'pointerup',
+    'touchstart', 'touchend', 'touchmove',
+    'mousedown', 'mouseup', 'click',
+    'keydown', 'wheel', 'scroll'
+  ];
 
-  function removeUnlockListeners() {
-    unlockEvents.forEach(evt => window.removeEventListener(evt, unlockOnGesture, true));
+  function removeTriggerListeners() {
+    triggerEvents.forEach(evt => {
+      window.removeEventListener(evt, handleFirstInteraction, { capture: true });
+      document.removeEventListener(evt, handleFirstInteraction, { capture: true });
+    });
   }
 
-  function unlockOnGesture(e) {
-    // Ignore clicks directly on the audio toggle button itself
-    if (e && e.target && e.target.closest && e.target.closest('#audiofab')) return;
-
-    if (!userWantsMusic) {
-      removeUnlockListeners();
-      return;
-    }
-
-    // If user interacts before 3 seconds, prime the audio decoder silently so at 3s it plays guaranteed
-    if (!threeSecElapsed) {
-      audio.muted = true;
-      const p = audio.play();
-      if (p !== undefined) {
-        p.then(() => {
-          audio.pause();
-          audio.currentTime = 0;
-          audio.muted = false;
-        }).catch(() => {});
+  function unlockWebAudio() {
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (Ctx) {
+        if (!audioCtx) audioCtx = new Ctx();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
       }
-      return;
-    }
-
-    // If 3 seconds have passed and audio is still waiting to unmute/play
-    if (audio.paused || audio.muted) {
-      audio.muted = false;
-      audio.volume = 0.45;
-      audio.play().then(() => {
-        updateUI(true);
-        removeUnlockListeners();
-      }).catch(() => {});
-    } else {
-      removeUnlockListeners();
-    }
+    } catch (err) {}
   }
 
-  // Attach gesture listeners immediately so any movement/scroll during the first 3s unlocks browser audio
-  unlockEvents.forEach(evt => window.addEventListener(evt, unlockOnGesture, { capture: true, passive: true }));
-
-  // Trigger automatic playback after 3 seconds (3000ms)
-  const timerId = setTimeout(() => {
-    threeSecElapsed = true;
-    if (!userWantsMusic) return;
-
+  function playAudioNow() {
+    if (!isMusicOn) return;
+    unlockWebAudio();
     audio.muted = false;
-    audio.volume = 0.45;
+    audio.volume = 0.5;
     const playPromise = audio.play();
-
     if (playPromise !== undefined) {
       playPromise.then(() => {
-        updateUI(true);
-        removeUnlockListeners();
+        audioUnlocked = true;
+        renderUI(true);
+        removeTriggerListeners();
       }).catch(() => {
-        // Fallback: start muted (always allowed by browsers) and unmute on next micro-interaction
-        audio.muted = true;
-        audio.play().catch(() => {});
+        // Keep listeners active until a trusted touch/click/scroll gesture completes
       });
     }
-  }, 3000);
+  }
 
-  // Toggle button click: "feeling the music" (Play) <-> "feel the music" (Pause)
+  function handleFirstInteraction(e) {
+    // If user clicked the audio button itself, let the button's own click listener handle it
+    if (e && e.target && e.target.closest && e.target.closest('#audiofab')) return;
+
+    if (!isMusicOn) {
+      removeTriggerListeners();
+      return;
+    }
+
+    if (!audioUnlocked || audio.paused) {
+      playAudioNow();
+    } else {
+      removeTriggerListeners();
+    }
+  }
+
+  // Attach listeners to both window and document in capture phase so any touch or scroll anywhere fires immediately
+  triggerEvents.forEach(evt => {
+    window.addEventListener(evt, handleFirstInteraction, { capture: true, passive: true });
+    document.addEventListener(evt, handleFirstInteraction, { capture: true, passive: true });
+  });
+
+  // Also try playing immediately on load in case browser already permits autoplay
+  playAudioNow();
+  window.addEventListener('load', playAudioNow, { once: true });
+
+  // Button click handler: toggles between "feeling the music" (Play) and "feel the music" (Pause)
   btn.addEventListener('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
 
-    if (userWantsMusic) {
-      // Switch OFF -> "feel the music"
-      userWantsMusic = false;
-      clearTimeout(timerId);
-      removeUnlockListeners();
+    unlockWebAudio();
+
+    // If audio was waiting for first touch and user tapped the button while it says "feeling the music"
+    if (isMusicOn && audio.paused && !audioUnlocked) {
+      // User tapped the button to hear/toggle it: if it's not actually playing yet, start it or pause it?
+      // Since button already says "feeling the music", clicking it should pause it to "feel the music",
+      // OR if they want to turn it off, it switches cleanly to "feel the music".
+      isMusicOn = false;
+      audioUnlocked = true;
+      removeTriggerListeners();
       audio.pause();
-      audio.muted = false;
-      updateUI(false);
+      renderUI(false);
+      return;
+    }
+
+    if (isMusicOn) {
+      // Currently ON ("feeling the music") -> Pause and show "feel the music"
+      isMusicOn = false;
+      removeTriggerListeners();
+      audio.pause();
+      renderUI(false);
     } else {
-      // Switch ON -> "feeling the music"
-      userWantsMusic = true;
-      threeSecElapsed = true;
+      // Currently OFF ("feel the music") -> Play and show "feeling the music"
+      isMusicOn = true;
+      audioUnlocked = true;
       audio.muted = false;
-      audio.volume = 0.45;
+      audio.volume = 0.5;
       audio.play().catch(() => {});
-      updateUI(true);
+      renderUI(true);
     }
   });
 })();
