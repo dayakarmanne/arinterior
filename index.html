@@ -236,17 +236,18 @@ header nav.max-w-7xl{position:relative;padding-left:max(1rem,env(safe-area-inset
 #portfolio .wrap > p{padding:.85rem 1.4rem;border-radius:999px;margin-top:1.6rem}
 #about .about-grid > div:last-child{padding:clamp(1.35rem,3.5vw,2.2rem) clamp(1.25rem,3.5vw,2.4rem)}
 
-/* Services */
-.svc{display:grid;grid-template-columns:56px 1fr auto;gap:1.2rem;align-items:center;padding:clamp(1.25rem,2.5vw,1.8rem) .8rem;border-bottom:1px solid var(--layer-line);position:relative;transition:.6s cubic-bezier(.16,1,.3,1);cursor:default}
-.svc::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(212,175,55,.14),transparent);opacity:0;transition:.6s cubic-bezier(.16,1,.3,1)}
-.svc:hover::before{opacity:1}.svc:hover{padding-left:1.5rem}
-.svc .n{font-family:'Cinzel',serif;color:var(--accent);font-size:.88rem;letter-spacing:.2em;font-weight:600;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+/* Services (Interactive Links to Portfolio Videos) */
+.svc{display:grid;grid-template-columns:56px 1fr auto;gap:1.2rem;align-items:center;padding:clamp(1.25rem,2.5vw,1.8rem) .8rem;border-bottom:1px solid var(--layer-line);position:relative;transition:.6s cubic-bezier(.16,1,.3,1);cursor:pointer;color:inherit;text-decoration:none}
+.svc::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(212,175,55,.14),transparent);opacity:0;transition:.6s cubic-bezier(.16,1,.3,1);pointer-events:none}
+.svc:hover::before,.svc:focus-visible::before{opacity:1}
+.svc:hover,.svc:focus-visible{padding-left:1.5rem;outline:none}
+.svc .n{font-family:'Cinzel',serif;color:var(--accent);font-size:.88rem;letter-spacing:.2em;font-weight:600;transition:transform .7s cubic-bezier(.16,1,.3,1);position:relative;z-index:1}
 .svc:hover .n{transform:translateX(4px)}
-.svc h3{font-family:'Cinzel',serif;font-size:clamp(1.18rem,2.6vw,2.1rem);font-weight:500;color:var(--head);margin:0;line-height:1.22;transition:.5s}
-.svc:hover h3{color:#FFE27A}
-.svc p{margin:.35rem 0 0;font-size:clamp(.86rem,1.2vw,.95rem);max-width:560px;color:var(--text-dim)}
-.svc .ar{width:42px;height:42px;border:1px solid rgba(255,226,122,.55);border-radius:50%;display:grid;place-items:center;color:var(--accent);background:transparent;transition:.6s cubic-bezier(.16,1,.3,1)}
-.svc:hover .ar{background:var(--accent);color:#000;transform:rotate(-45deg)}
+.svc h3{font-family:'Cinzel',serif;font-size:clamp(1.18rem,2.6vw,2.1rem);font-weight:500;color:var(--head);margin:0;line-height:1.22;transition:.5s;position:relative;z-index:1}
+.svc:hover h3,.svc:focus-visible h3{color:#FFE27A}
+.svc p{margin:.35rem 0 0;font-size:clamp(.86rem,1.2vw,.95rem);max-width:560px;color:var(--text-dim);position:relative;z-index:1}
+.svc .ar{width:42px;height:42px;border:1px solid rgba(255,226,122,.55);border-radius:50%;display:grid;place-items:center;color:var(--accent);background:transparent;transition:.6s cubic-bezier(.16,1,.3,1);position:relative;z-index:1}
+.svc:hover .ar,.svc:focus-visible .ar{background:var(--accent);color:#000;transform:rotate(-45deg);box-shadow:0 0 20px rgba(233,194,91,.45)}
 #services .glass{padding:.3rem clamp(.85rem,2.5vw,1.5rem)}
 #services .svc:first-child{border-top:0}
 #services .svc:last-child{border-bottom:0!important}
@@ -361,8 +362,8 @@ footer{border-top:1px solid var(--layer-line);background:var(--layer);border-rad
 @media(max-width:860px){.about-grid{grid-template-columns:1fr}.photo-wrap{max-width:240px}}
 @media(max-width:640px){
   #grid{grid-template-columns:1fr}
-  .svc{grid-template-columns:40px 1fr;gap:.8rem}
-  .svc .ar{display:none}
+  .svc{grid-template-columns:36px 1fr 34px;gap:.75rem}
+  .svc .ar{width:34px;height:34px;font-size:.85rem}
   .facts{grid-template-columns:1fr}
   .facts>div{border-right:0;border-bottom:1px solid var(--layer-line)}
   .facts>div:last-child{border-bottom:0}
@@ -578,7 +579,7 @@ footer{border-top:1px solid var(--layer-line);background:var(--layer);border-rad
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- SERVICES (Linked to related Cloudinary Portfolio Videos) -->
 <section id="services" class="sec">
   <div class="wrap">
     <div class="flex flex-wrap items-end justify-between gap-4 sm:gap-6 mb-8 sm:mb-10">
@@ -586,12 +587,36 @@ footer{border-top:1px solid var(--layer-line);background:var(--layer);border-rad
       <p class="max-w-md" data-rv>Every piece is planned around your home, your routine and your taste, then finished with care.</p>
     </div>
     <div class="glass px-3 sm:px-8 py-2" data-rv>
-      <div class="svc"><span class="n">01</span><div><h3>Modular Kitchens</h3><p>Efficient layouts, rich finishes and storage that keeps every detail within reach.</p></div><span class="ar">→</span></div>
-      <div class="svc"><span class="n">02</span><div><h3>Wardrobes &amp; Walk-ins</h3><p>Custom cupboards and dressing rooms shaped around how you live and dress.</p></div><span class="ar">→</span></div>
-      <div class="svc"><span class="n">03</span><div><h3>False Ceilings</h3><p>Coffered, layered and cove-lit ceilings that give a room its crown.</p></div><span class="ar">→</span></div>
-      <div class="svc"><span class="n">04</span><div><h3>Living &amp; TV Walls</h3><p>Statement feature walls and entertainment units with a refined, balanced look.</p></div><span class="ar">→</span></div>
-      <div class="svc"><span class="n">05</span><div><h3>Bedrooms</h3><p>Calm, considered suites with beds, panelling and lighting made for rest.</p></div><span class="ar">→</span></div>
-      <div class="svc" style="border-bottom:0"><span class="n">06</span><div><h3>Painting &amp; Finishing</h3><p>Interior and exterior finishes that complete the story, right down to the last edge.</p></div><span class="ar">→</span></div>
+      <a class="svc" href="https://res.cloudinary.com/ofiyq8xe/video/upload/v1793981032/23332f509d467dc8e01c8fd25722ba4d.mp4" data-work-idx="0" aria-label="View Modular Kitchens video">
+        <span class="n">01</span>
+        <div><h3>Modular Kitchens</h3><p>Efficient layouts, rich finishes and storage that keeps every detail within reach.</p></div>
+        <span class="ar" aria-hidden="true">→</span>
+      </a>
+      <a class="svc" href="https://res.cloudinary.com/ofiyq8xe/video/upload/v1793981767/IRYSTAVARESINTERIORES_ssspin.io_1793981708.mp4" data-work-idx="5" aria-label="View Wardrobes and Walk-ins video">
+        <span class="n">02</span>
+        <div><h3>Wardrobes &amp; Walk-ins</h3><p>Custom cupboards and dressing rooms shaped around how you live and dress.</p></div>
+        <span class="ar" aria-hidden="true">→</span>
+      </a>
+      <a class="svc" href="https://res.cloudinary.com/ofiyq8xe/video/upload/v1793981461/mudassarhussain0188_ssspin.io_1793981408.mp4" data-work-idx="3" aria-label="View False Ceilings video">
+        <span class="n">03</span>
+        <div><h3>False Ceilings</h3><p>Coffered, layered and cove-lit ceilings that give a room its crown.</p></div>
+        <span class="ar" aria-hidden="true">→</span>
+      </a>
+      <a class="svc" href="https://res.cloudinary.com/ofiyq8xe/video/upload/v1793981605/homecraafts_ssspin.io_1793981588.mp4" data-work-idx="4" aria-label="View Living and TV Walls video">
+        <span class="n">04</span>
+        <div><h3>Living &amp; TV Walls</h3><p>Statement feature walls and entertainment units with a refined, balanced look.</p></div>
+        <span class="ar" aria-hidden="true">→</span>
+      </a>
+      <a class="svc" href="https://res.cloudinary.com/ofiyq8xe/video/upload/v1793981244/lougenebinghay_ssspin.io_1793981226.mp4" data-work-idx="2" aria-label="View Bedrooms video">
+        <span class="n">05</span>
+        <div><h3>Bedrooms</h3><p>Calm, considered suites with beds, panelling and lighting made for rest.</p></div>
+        <span class="ar" aria-hidden="true">→</span>
+      </a>
+      <a class="svc" style="border-bottom:0" href="https://res.cloudinary.com/ofiyq8xe/video/upload/v1793981146/actinse_ssspin.io_1793981096.mp4" data-work-idx="1" aria-label="View Painting and Finishing Grand Living Room video">
+        <span class="n">06</span>
+        <div><h3>Painting &amp; Finishing</h3><p>Interior and exterior finishes that complete the story, right down to the last edge.</p></div>
+        <span class="ar" aria-hidden="true">→</span>
+      </a>
     </div>
   </div>
 </section>
@@ -849,9 +874,27 @@ footer{border-top:1px solid var(--layer-line);background:var(--layer);border-rad
     $('#lbcap').textContent = w.t;
     $('#lbcount').textContent = String(current + 1).padStart(2, '0') + ' / ' + String(list.length).padStart(2, '0');
   };
-  const openAt = i => { list = visibleIdx(); current = Math.max(0, list.indexOf(i)); show(); lb.classList.remove('hidden'); document.body.style.overflow = 'hidden'; $('#lbclose').focus(); };
+  const openAt = i => {
+    const vis = visibleIdx();
+    list = vis.includes(i) ? vis : works.map((_, idx) => idx);
+    current = Math.max(0, list.indexOf(i));
+    show();
+    lb.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    $('#lbclose').focus();
+  };
   const closeLb = () => { lb.classList.add('hidden'); lbContent.innerHTML = ''; document.body.style.overflow = ''; };
   const step = d => { current = (current + d + list.length) % list.length; show(); };
+
+  /* Link Services Rows (01 - 06) directly to their corresponding Cloudinary video in the Lightbox */
+  $$('#services .svc[data-work-idx]').forEach(svc => {
+    svc.addEventListener('click', e => {
+      e.preventDefault();
+      const idx = Number(svc.dataset.workIdx);
+      openAt(idx);
+    });
+  });
+
   grid.addEventListener('click', e => { const t = e.target.closest('.tile'); if (t) openAt(Number(t.dataset.i)); });
   grid.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { const t = e.target.closest('.tile'); if (t) { e.preventDefault(); openAt(Number(t.dataset.i)); } } });
   $('#lbclose').addEventListener('click', closeLb);
@@ -899,7 +942,7 @@ footer{border-top:1px solid var(--layer-line);background:var(--layer);border-rad
     };
     loop();
     document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(raf); else loop(); });
-    document.addEventListener('pointerover', e => { ring.classList.toggle('big', !!e.target.closest('a,button,.tile,.chip,.cbtn')); });
+    document.addEventListener('pointerover', e => { ring.classList.toggle('big', !!e.target.closest('a,button,.tile,.chip,.cbtn,.svc')); });
 
     $$('.mag').forEach(b => {
       b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * .22}px,${(e.clientY - r.top - r.height / 2) * .35}px)`; });
