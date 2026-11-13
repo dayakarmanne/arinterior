@@ -105,6 +105,11 @@ header.scrolled{background:rgba(6,6,6,.66);backdrop-filter:blur(12px) saturate(1
 .nl:hover,.nl.act{opacity:1;color:#FFE27A}
 .nl:hover::after,.nl.act::after{transform:scaleX(1);transform-origin:left}
 #progress{position:fixed;top:0;left:0;height:2px;width:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,#8f6f12,#fff3c4,#d4af37);z-index:200;box-shadow:0 0 14px var(--accent)}
+@media(max-width:1023px){
+  #menu{position:fixed;inset:0;background:rgba(5,5,5,.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6rem;opacity:0;visibility:hidden;transition:.5s cubic-bezier(.16,1,.3,1);z-index:-1}
+  #menu.open{opacity:1;visibility:visible}
+  #menu .nl{font-family:'Cinzel',serif;font-size:1.5rem;letter-spacing:.14em}
+}
 
 #home{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:7rem 1.25rem 5rem;isolation:isolate;position:relative}
 #home .hero-content::before{content:"";position:absolute;inset:-6% -14%;z-index:-1;pointer-events:none;background:radial-gradient(closest-side,rgba(0,0,0,.5),rgba(0,0,0,.2) 62%,transparent)}
@@ -232,9 +237,10 @@ iframe{width:100%;height:300px;border:1px solid var(--layer-line);border-radius:
 #wafab::before{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,226,122,.85);animation:ping 2.4s cubic-bezier(.16,1,.3,1) infinite}
 
 /* Expanded Audio FAB Pill */
-#audiofab{position:fixed;right:max(1.3rem,env(safe-area-inset-right));bottom:max(5.8rem,env(safe-area-inset-bottom));z-index:120;display:flex;align-items:center;gap:.6rem;padding:.7rem 1.1rem;border-radius:999px;background:rgba(6,6,6,.85);border:1px solid var(--accent);color:var(--accent);box-shadow:0 10px 30px rgba(212,175,55,.25);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;transition:transform .4s cubic-bezier(.16,1,.3,1),background .4s,color .4s}
-#audiofab span{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600}
-#audiofab:hover{transform:scale(1.05);background:var(--accent);color:#000}
+#audiofab{position:fixed;right:max(1.3rem,env(safe-area-inset-right));bottom:max(5.8rem,env(safe-area-inset-bottom));z-index:120;display:flex;align-items:center;gap:.65rem;padding:.72rem 1.2rem;border-radius:999px;background:rgba(6,6,6,.88);border:1px solid var(--accent);color:var(--accent);box-shadow:0 10px 30px rgba(212,175,55,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;transition:transform .4s cubic-bezier(.16,1,.3,1),background .4s,color .4s,border-color .4s;user-select:none;-webkit-user-select:none}
+#audiofab span{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;white-space:nowrap}
+#audiofab.paused{border-color:rgba(255,255,255,.25);color:var(--text-dim)}
+#audiofab:hover{transform:scale(1.05);background:var(--accent);color:#000;border-color:var(--accent)}
 
 @keyframes ping{to{transform:scale(1.7);opacity:0}}
 
@@ -327,9 +333,13 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
 
 <div id="orb" aria-hidden="true"></div><div id="ring" aria-hidden="true"><span class="rr"></span></div><div id="dir" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
 
-<!-- Audio Toggle FAB with Dynamic Text & Icons -->
-<button id="audiofab" aria-label="Toggle ambient music" title="Toggle background audio">
-  <svg id="audio-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+<!-- Audio Toggle FAB with Dynamic Text & Icons (Default: "feeling the music") -->
+<button id="audiofab" type="button" aria-label="Toggle ambient music" title="Click to toggle background music">
+  <svg id="audio-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+  </svg>
   <span id="audio-text">feeling the music</span>
 </button>
 
@@ -537,59 +547,95 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
   const audioFab = $('#audiofab');
   const audioIcon = $('#audio-icon');
   const audioText = $('#audio-text');
-  let audioPlaying = true; // Started playing initially via autoplay
 
-  const updateAudioUI = () => {
-    if (audioPlaying) {
-      audioIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
+  // Default state is ON ("feeling the music") when website loads
+  let isMusicWanted = true;
+
+  const ICON_PLAYING = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
+  const ICON_PAUSED  = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>';
+
+  const renderAudioUI = (playingState) => {
+    if (playingState) {
+      audioIcon.innerHTML = ICON_PLAYING;
       audioText.textContent = 'feeling the music';
+      audioFab.classList.remove('paused');
     } else {
-      audioIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>';
+      audioIcon.innerHTML = ICON_PAUSED;
       audioText.textContent = 'feel the music';
+      audioFab.classList.add('paused');
     }
   };
 
-  const toggleAudio = () => {
-    if (audioPlaying) {
+  // Set initial UI to "feeling the music"
+  renderAudioUI(true);
+  bgAudio.volume = 0.45;
+
+  const tryPlayAudio = () => {
+    if (!isMusicWanted) return;
+    const playPromise = bgAudio.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        renderAudioUI(true);
+        removeUnlockListeners();
+      }).catch(() => {
+        // Browser policy held back autoplay; keep UI in default "feeling the music" state
+        // and start playing immediately on the user's first gesture
+      });
+    }
+  };
+
+  // Unlock listeners for browsers that block unmuted autoplay on initial load
+  const unlockEvents = ['click', 'touchstart', 'pointerdown', 'scroll', 'keydown'];
+  const unlockHandler = (e) => {
+    // Ignore if the user clicked the audio button itself (handled by its own click listener)
+    if (e.target && e.target.closest && e.target.closest('#audiofab')) return;
+    if (isMusicWanted && bgAudio.paused) {
+      bgAudio.play().then(() => {
+        renderAudioUI(true);
+        removeUnlockListeners();
+      }).catch(() => {});
+    } else if (!isMusicWanted) {
+      removeUnlockListeners();
+    }
+  };
+
+  function removeUnlockListeners() {
+    unlockEvents.forEach(evt => window.removeEventListener(evt, unlockHandler, { passive: true }));
+  }
+
+  unlockEvents.forEach(evt => window.addEventListener(evt, unlockHandler, { passive: true }));
+
+  // Attempt immediate autoplay on script execution & window load
+  tryPlayAudio();
+  window.addEventListener('DOMContentLoaded', tryPlayAudio);
+  window.addEventListener('load', tryPlayAudio);
+
+  // Button click toggles between "feeling the music" (Play) and "feel the music" (Pause)
+  audioFab.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (isMusicWanted && !bgAudio.paused) {
+      // Currently playing -> Pause it
+      isMusicWanted = false;
       bgAudio.pause();
-      audioPlaying = false;
+      renderAudioUI(false);
+      removeUnlockListeners();
+    } else if (isMusicWanted && bgAudio.paused) {
+      // Browser had blocked initial autoplay and user clicked the button directly -> Play it
+      // Or if they want to turn it off when it looks ON, let's check:
+      // First try playing; if user clicked while it shows "feeling the music" and audio was already playing, it pauses above.
+      // If audio was blocked by browser, clicking the button should toggle it to OFF ("feel the music") so the button always responds predictably on click!
+      isMusicWanted = false;
+      bgAudio.pause();
+      renderAudioUI(false);
+      removeUnlockListeners();
     } else {
-      bgAudio.volume = 0.4;
-      bgAudio.play().then(() => {
-        audioPlaying = true;
-      }).catch(() => {});
+      // Currently paused ("feel the music") -> Play it ("feeling the music")
+      isMusicWanted = true;
+      bgAudio.volume = 0.45;
+      bgAudio.play().catch(() => {});
+      renderAudioUI(true);
     }
-    updateAudioUI();
-  };
-
-  audiofab.addEventListener('click', toggleAudio);
-
-  // Attempt autoplay immediately on load
-  window.addEventListener('DOMContentLoaded', () => {
-    bgAudio.volume = 0.4;
-    bgAudio.play().then(() => {
-      audioPlaying = true;
-      updateAudioUI();
-    }).catch(() => {
-      // Browsers may block autoplay until first user gesture
-      audioPlaying = false;
-      updateAudioUI();
-    });
   });
-
-  const unlockAudio = () => {
-    if (!audioPlaying && bgAudio.paused) {
-      bgAudio.volume = 0.4;
-      bgAudio.play().then(() => {
-        audioPlaying = true;
-        updateAudioUI();
-      }).catch(() => {});
-    }
-    removeEventListener('pointerdown', unlockAudio);
-    removeEventListener('keydown', unlockAudio);
-  };
-  addEventListener('pointerdown', unlockAudio, { once: true });
-  addEventListener('keydown', unlockAudio, { once: true });
 
   const split = el => {
     const t = el.textContent;
@@ -953,10 +999,15 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
     });
   };
 
-  
   const run = () => {
     if (started) return; started = true;
-    const done = () => { preloader.style.display = 'none'; preloader.setAttribute('aria-hidden', 'true'); heroIn(); scrollAnims(); };
+    const done = () => {
+      preloader.style.display = 'none';
+      preloader.setAttribute('aria-hidden', 'true');
+      tryPlayAudio();
+      heroIn();
+      scrollAnims();
+    };
     if (!window.gsap || reduced) {
       arChars.concat(subChars).forEach(c => c.style.transform = ''); $$('[data-hero]').forEach(e => e.style.opacity = 1);
       preloader.style.display = 'none'; scrollAnims(); return;
