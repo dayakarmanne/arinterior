@@ -237,9 +237,9 @@ iframe{width:100%;height:300px;border:1px solid var(--layer-line);border-radius:
 #wafab::before{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,226,122,.85);animation:ping 2.4s cubic-bezier(.16,1,.3,1) infinite}
 
 /* Expanded Audio FAB Pill */
-#audiofab{position:fixed;right:max(1.3rem,env(safe-area-inset-right));bottom:max(5.8rem,env(safe-area-inset-bottom));z-index:120;display:flex;align-items:center;gap:.65rem;padding:.72rem 1.2rem;border-radius:999px;background:rgba(6,6,6,.88);border:1px solid var(--accent);color:var(--accent);box-shadow:0 10px 30px rgba(212,175,55,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;transition:transform .4s cubic-bezier(.16,1,.3,1),background .4s,color .4s,border-color .4s;user-select:none;-webkit-user-select:none}
+#audiofab{position:fixed;right:max(1.3rem,env(safe-area-inset-right));bottom:max(5.8rem,env(safe-area-inset-bottom));z-index:130;display:flex;align-items:center;gap:.65rem;padding:.72rem 1.2rem;border-radius:999px;background:rgba(6,6,6,.88);border:1px solid var(--accent);color:var(--accent);box-shadow:0 10px 30px rgba(212,175,55,.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);cursor:pointer;transition:transform .4s cubic-bezier(.16,1,.3,1),background .4s,color .4s,border-color .4s;user-select:none;-webkit-user-select:none;pointer-events:auto}
 #audiofab span{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;white-space:nowrap}
-#audiofab.paused{border-color:rgba(255,255,255,.25);color:var(--text-dim)}
+#audiofab.paused{border-color:rgba(255,255,255,.28);color:var(--text-dim)}
 #audiofab:hover{transform:scale(1.05);background:var(--accent);color:#000;border-color:var(--accent)}
 
 @keyframes ping{to{transform:scale(1.7);opacity:0}}
@@ -313,7 +313,126 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
 <div id="grain" aria-hidden="true"></div>
 
 <!-- Background Audio (Autoplay enabled) -->
-<audio id="bg-audio" src="https://res.cloudinary.com/ofiyq8xe/video/upload/v1794574910/atlasaudio-chinese-traditional-617551.mp3" loop autoplay preload="auto"></audio>
+<audio id="bg-audio" src="https://res.cloudinary.com/ofiyq8xe/video/upload/v1794574910/atlasaudio-chinese-traditional-617551.mp3" loop autoplay preload="auto" crossorigin="anonymous"></audio>
+
+<!-- Audio Toggle FAB with Dynamic Text & Icons (Default: "feeling the music") -->
+<button id="audiofab" type="button" aria-label="Toggle ambient music" title="Click to toggle background music">
+  <svg id="audio-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+  </svg>
+  <span id="audio-text">feeling the music</span>
+</button>
+
+<!-- Dedicated IIFE for Immediate Initial Load Audio Autoplay & Toggle -->
+<script>
+(function initAudioOnLoad() {
+  'use strict';
+
+  const audio = document.getElementById('bg-audio');
+  const btn = document.getElementById('audiofab');
+  const icon = document.getElementById('audio-icon');
+  const label = document.getElementById('audio-text');
+
+  if (!audio || !btn) return;
+
+  const SVG_PLAYING = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
+  const SVG_PAUSED  = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>';
+
+  // Default state when website loads: ON ("feeling the music")
+  let isPlayingState = true;
+  audio.volume = 0.45;
+  audio.loop = true;
+
+  function syncUI(playing) {
+    if (playing) {
+      icon.innerHTML = SVG_PLAYING;
+      label.textContent = 'feeling the music';
+      btn.classList.remove('paused');
+      btn.setAttribute('aria-pressed', 'true');
+    } else {
+      icon.innerHTML = SVG_PAUSED;
+      label.textContent = 'feel the music';
+      btn.classList.add('paused');
+      btn.setAttribute('aria-pressed', 'false');
+    }
+  }
+
+  // Initialize UI immediately to "feeling the music"
+  syncUI(true);
+
+  // Unlock events if browser policy defers unmuted audio on fresh load
+  const unlockEvents = ['pointerdown', 'touchstart', 'mousedown', 'keydown', 'wheel', 'scroll', 'mousemove'];
+
+  function removeUnlockListeners() {
+    unlockEvents.forEach(evt => window.removeEventListener(evt, unlockAudio, true));
+  }
+
+  function unlockAudio(e) {
+    // Do not intercept if the user is clicking the audio button itself
+    if (e && e.target && e.target.closest && e.target.closest('#audiofab')) return;
+    if (!isPlayingState) {
+      removeUnlockListeners();
+      return;
+    }
+    if (audio.paused) {
+      audio.muted = false;
+      const p = audio.play();
+      if (p !== undefined) {
+        p.then(() => {
+          syncUI(true);
+          removeUnlockListeners();
+        }).catch(() => {});
+      }
+    } else {
+      removeUnlockListeners();
+    }
+  }
+
+  function startInitialAutoplay() {
+    if (!isPlayingState) return;
+    audio.muted = false;
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        syncUI(true);
+        removeUnlockListeners();
+      }).catch(() => {
+        // Browser held back unmuted autoplay; keep UI on "feeling the music"
+        // and attach high-priority capture listeners to start on first movement/scroll/tap
+        unlockEvents.forEach(evt => window.addEventListener(evt, unlockAudio, { capture: true, passive: true }));
+      });
+    }
+  }
+
+  // Trigger immediately inside IIFE, plus on DOMContentLoaded & window load
+  startInitialAutoplay();
+  document.addEventListener('DOMContentLoaded', startInitialAutoplay, { once: true });
+  window.addEventListener('load', startInitialAutoplay, { once: true });
+
+  // Toggle on user click: "feeling the music" (Play) <-> "feel the music" (Pause)
+  btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (isPlayingState) {
+      // Currently in "feeling the music" state -> switch to OFF ("feel the music")
+      isPlayingState = false;
+      removeUnlockListeners();
+      audio.pause();
+      syncUI(false);
+    } else {
+      // Currently in "feel the music" state -> switch to ON ("feeling the music")
+      isPlayingState = true;
+      audio.muted = false;
+      audio.volume = 0.45;
+      audio.play().catch(() => {});
+      syncUI(true);
+    }
+  });
+})();
+</script>
 
 <!-- Preloader -->
 <div id="preloader" role="status" aria-label="Loading AR Interior Designing">
@@ -332,16 +451,6 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
 </div>
 
 <div id="orb" aria-hidden="true"></div><div id="ring" aria-hidden="true"><span class="rr"></span></div><div id="dir" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
-
-<!-- Audio Toggle FAB with Dynamic Text & Icons (Default: "feeling the music") -->
-<button id="audiofab" type="button" aria-label="Toggle ambient music" title="Click to toggle background music">
-  <svg id="audio-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-  </svg>
-  <span id="audio-text">feeling the music</span>
-</button>
 
 <!-- WhatsApp FAB -->
 <a id="wafab" data-wa href="#" aria-label="Chat on WhatsApp">
@@ -541,101 +650,6 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
   $$('[data-wa]').forEach(a => { a.href = WA; a.target = '_blank'; a.rel = 'noopener'; });
   $$('[data-social]').forEach(a => { const u = SOCIAL[a.dataset.social]; if (u) { a.href = u; a.hidden = false; } });
   $('#yr').textContent = new Date().getFullYear();
-
-  /* ===== Background Audio Handler ===== */
-  const bgAudio = $('#bg-audio');
-  const audioFab = $('#audiofab');
-  const audioIcon = $('#audio-icon');
-  const audioText = $('#audio-text');
-
-  // Default state is ON ("feeling the music") when website loads
-  let isMusicWanted = true;
-
-  const ICON_PLAYING = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
-  const ICON_PAUSED  = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>';
-
-  const renderAudioUI = (playingState) => {
-    if (playingState) {
-      audioIcon.innerHTML = ICON_PLAYING;
-      audioText.textContent = 'feeling the music';
-      audioFab.classList.remove('paused');
-    } else {
-      audioIcon.innerHTML = ICON_PAUSED;
-      audioText.textContent = 'feel the music';
-      audioFab.classList.add('paused');
-    }
-  };
-
-  // Set initial UI to "feeling the music"
-  renderAudioUI(true);
-  bgAudio.volume = 0.45;
-
-  const tryPlayAudio = () => {
-    if (!isMusicWanted) return;
-    const playPromise = bgAudio.play();
-    if (playPromise !== undefined) {
-      playPromise.then(() => {
-        renderAudioUI(true);
-        removeUnlockListeners();
-      }).catch(() => {
-        // Browser policy held back autoplay; keep UI in default "feeling the music" state
-        // and start playing immediately on the user's first gesture
-      });
-    }
-  };
-
-  // Unlock listeners for browsers that block unmuted autoplay on initial load
-  const unlockEvents = ['click', 'touchstart', 'pointerdown', 'scroll', 'keydown'];
-  const unlockHandler = (e) => {
-    // Ignore if the user clicked the audio button itself (handled by its own click listener)
-    if (e.target && e.target.closest && e.target.closest('#audiofab')) return;
-    if (isMusicWanted && bgAudio.paused) {
-      bgAudio.play().then(() => {
-        renderAudioUI(true);
-        removeUnlockListeners();
-      }).catch(() => {});
-    } else if (!isMusicWanted) {
-      removeUnlockListeners();
-    }
-  };
-
-  function removeUnlockListeners() {
-    unlockEvents.forEach(evt => window.removeEventListener(evt, unlockHandler, { passive: true }));
-  }
-
-  unlockEvents.forEach(evt => window.addEventListener(evt, unlockHandler, { passive: true }));
-
-  // Attempt immediate autoplay on script execution & window load
-  tryPlayAudio();
-  window.addEventListener('DOMContentLoaded', tryPlayAudio);
-  window.addEventListener('load', tryPlayAudio);
-
-  // Button click toggles between "feeling the music" (Play) and "feel the music" (Pause)
-  audioFab.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (isMusicWanted && !bgAudio.paused) {
-      // Currently playing -> Pause it
-      isMusicWanted = false;
-      bgAudio.pause();
-      renderAudioUI(false);
-      removeUnlockListeners();
-    } else if (isMusicWanted && bgAudio.paused) {
-      // Browser had blocked initial autoplay and user clicked the button directly -> Play it
-      // Or if they want to turn it off when it looks ON, let's check:
-      // First try playing; if user clicked while it shows "feeling the music" and audio was already playing, it pauses above.
-      // If audio was blocked by browser, clicking the button should toggle it to OFF ("feel the music") so the button always responds predictably on click!
-      isMusicWanted = false;
-      bgAudio.pause();
-      renderAudioUI(false);
-      removeUnlockListeners();
-    } else {
-      // Currently paused ("feel the music") -> Play it ("feeling the music")
-      isMusicWanted = true;
-      bgAudio.volume = 0.45;
-      bgAudio.play().catch(() => {});
-      renderAudioUI(true);
-    }
-  });
 
   const split = el => {
     const t = el.textContent;
@@ -1004,7 +1018,6 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
     const done = () => {
       preloader.style.display = 'none';
       preloader.setAttribute('aria-hidden', 'true');
-      tryPlayAudio();
       heroIn();
       scrollAnims();
     };
