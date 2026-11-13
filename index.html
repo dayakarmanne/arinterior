@@ -312,8 +312,8 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
 <canvas id="dust" aria-hidden="true"></canvas>
 <div id="grain" aria-hidden="true"></div>
 
-<!-- Background Audio (Autoplay enabled) -->
-<audio id="bg-audio" src="https://res.cloudinary.com/ofiyq8xe/video/upload/v1794574910/atlasaudio-chinese-traditional-617551.mp3" loop autoplay preload="auto" crossorigin="anonymous"></audio>
+<!-- Background Audio -->
+<audio id="bg-audio" src="https://res.cloudinary.com/ofiyq8xe/video/upload/v1794574910/atlasaudio-chinese-traditional-617551.mp3" loop preload="auto" playsinline></audio>
 
 <!-- Audio Toggle FAB with Dynamic Text & Icons (Default: "feeling the music") -->
 <button id="audiofab" type="button" aria-label="Toggle ambient music" title="Click to toggle background music">
@@ -325,9 +325,9 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
   <span id="audio-text">feeling the music</span>
 </button>
 
-<!-- Dedicated IIFE for Immediate Initial Load Audio Autoplay & Toggle -->
+<!-- Dedicated IIFE: Auto-plays after 3 seconds + Toggles "feeling the music" / "feel the music" -->
 <script>
-(function initAudioOnLoad() {
+(function initDelayedAudioEngine() {
   'use strict';
 
   const audio = document.getElementById('bg-audio');
@@ -340,13 +340,15 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
   const SVG_PLAYING = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>';
   const SVG_PAUSED  = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>';
 
-  // Default state when website loads: ON ("feeling the music")
-  let isPlayingState = true;
+  // Default state is ON ("feeling the music")
+  let userWantsMusic = true;
+  let threeSecElapsed = false;
+
   audio.volume = 0.45;
   audio.loop = true;
 
-  function syncUI(playing) {
-    if (playing) {
+  function updateUI(isPlaying) {
+    if (isPlaying) {
       icon.innerHTML = SVG_PLAYING;
       label.textContent = 'feeling the music';
       btn.classList.remove('paused');
@@ -359,76 +361,96 @@ footer{padding-bottom:max(3.5rem,env(safe-area-inset-bottom))}
     }
   }
 
-  // Initialize UI immediately to "feeling the music"
-  syncUI(true);
+  // Set default initial UI state: "feeling the music"
+  updateUI(true);
 
-  // Unlock events if browser policy defers unmuted audio on fresh load
-  const unlockEvents = ['pointerdown', 'touchstart', 'mousedown', 'keydown', 'wheel', 'scroll', 'mousemove'];
+  const unlockEvents = ['pointerdown', 'touchstart', 'mousedown', 'keydown', 'scroll', 'wheel', 'mousemove'];
 
   function removeUnlockListeners() {
-    unlockEvents.forEach(evt => window.removeEventListener(evt, unlockAudio, true));
+    unlockEvents.forEach(evt => window.removeEventListener(evt, unlockOnGesture, true));
   }
 
-  function unlockAudio(e) {
-    // Do not intercept if the user is clicking the audio button itself
+  function unlockOnGesture(e) {
+    // Ignore clicks directly on the audio toggle button itself
     if (e && e.target && e.target.closest && e.target.closest('#audiofab')) return;
-    if (!isPlayingState) {
+
+    if (!userWantsMusic) {
       removeUnlockListeners();
       return;
     }
-    if (audio.paused) {
-      audio.muted = false;
+
+    // If user interacts before 3 seconds, prime the audio decoder silently so at 3s it plays guaranteed
+    if (!threeSecElapsed) {
+      audio.muted = true;
       const p = audio.play();
       if (p !== undefined) {
         p.then(() => {
-          syncUI(true);
-          removeUnlockListeners();
+          audio.pause();
+          audio.currentTime = 0;
+          audio.muted = false;
         }).catch(() => {});
       }
+      return;
+    }
+
+    // If 3 seconds have passed and audio is still waiting to unmute/play
+    if (audio.paused || audio.muted) {
+      audio.muted = false;
+      audio.volume = 0.45;
+      audio.play().then(() => {
+        updateUI(true);
+        removeUnlockListeners();
+      }).catch(() => {});
     } else {
       removeUnlockListeners();
     }
   }
 
-  function startInitialAutoplay() {
-    if (!isPlayingState) return;
+  // Attach gesture listeners immediately so any movement/scroll during the first 3s unlocks browser audio
+  unlockEvents.forEach(evt => window.addEventListener(evt, unlockOnGesture, { capture: true, passive: true }));
+
+  // Trigger automatic playback after 3 seconds (3000ms)
+  const timerId = setTimeout(() => {
+    threeSecElapsed = true;
+    if (!userWantsMusic) return;
+
     audio.muted = false;
+    audio.volume = 0.45;
     const playPromise = audio.play();
+
     if (playPromise !== undefined) {
       playPromise.then(() => {
-        syncUI(true);
+        updateUI(true);
         removeUnlockListeners();
       }).catch(() => {
-        // Browser held back unmuted autoplay; keep UI on "feeling the music"
-        // and attach high-priority capture listeners to start on first movement/scroll/tap
-        unlockEvents.forEach(evt => window.addEventListener(evt, unlockAudio, { capture: true, passive: true }));
+        // Fallback: start muted (always allowed by browsers) and unmute on next micro-interaction
+        audio.muted = true;
+        audio.play().catch(() => {});
       });
     }
-  }
+  }, 3000);
 
-  // Trigger immediately inside IIFE, plus on DOMContentLoaded & window load
-  startInitialAutoplay();
-  document.addEventListener('DOMContentLoaded', startInitialAutoplay, { once: true });
-  window.addEventListener('load', startInitialAutoplay, { once: true });
-
-  // Toggle on user click: "feeling the music" (Play) <-> "feel the music" (Pause)
+  // Toggle button click: "feeling the music" (Play) <-> "feel the music" (Pause)
   btn.addEventListener('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
 
-    if (isPlayingState) {
-      // Currently in "feeling the music" state -> switch to OFF ("feel the music")
-      isPlayingState = false;
+    if (userWantsMusic) {
+      // Switch OFF -> "feel the music"
+      userWantsMusic = false;
+      clearTimeout(timerId);
       removeUnlockListeners();
       audio.pause();
-      syncUI(false);
+      audio.muted = false;
+      updateUI(false);
     } else {
-      // Currently in "feel the music" state -> switch to ON ("feeling the music")
-      isPlayingState = true;
+      // Switch ON -> "feeling the music"
+      userWantsMusic = true;
+      threeSecElapsed = true;
       audio.muted = false;
       audio.volume = 0.45;
       audio.play().catch(() => {});
-      syncUI(true);
+      updateUI(true);
     }
   });
 })();
