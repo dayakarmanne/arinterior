@@ -191,10 +191,6 @@ header nav.max-w-7xl{position:relative;padding-left:max(1rem,env(safe-area-inset
 .ch{display:inline-block;will-change:transform}
 .mono .ch{background-image:linear-gradient(170deg,#fffbe0 0%,#ffe98f 32%,#f9cf4a 64%,#d9a520 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:clamp(1.35rem,3.4vw,2.6rem);margin-top:clamp(1.1rem,2.5vh,1.8rem)}
-.scroll-cue{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.55rem;font-size:.6rem;letter-spacing:.38em;text-transform:uppercase;color:var(--accent);font-weight:600;z-index:2}
-.scroll-cue span{width:1px;height:44px;background:linear-gradient(var(--accent),transparent);position:relative;overflow:hidden}
-.scroll-cue span::after{content:"";position:absolute;top:-30%;left:0;width:100%;height:30%;background:#fff;animation:drip 2.2s cubic-bezier(.16,1,.3,1) infinite}
-@keyframes drip{to{top:110%}}
 
 /* Marquee */
 .marq{overflow:hidden;border-block:1px solid var(--layer-line);padding:1rem 0;border-radius:0}
@@ -383,7 +379,6 @@ footer{border-top:1px solid var(--layer-line);background:var(--layer);border-rad
 @media(max-height:540px) and (orientation:landscape){
   #home{padding-top:4.8rem;padding-bottom:2.5rem}
   .mono{font-size:4.2rem}
-  .scroll-cue{display:none}
   #menu{max-height:78vh;overflow-y:auto}
 }
 @media(min-width:1800px){html{font-size:17px}.wrap{max-width:1480px}}
@@ -548,7 +543,6 @@ footer{border-top:1px solid var(--layer-line);background:var(--layer);border-rad
       <a class="btn btn-ghost mag" href="#portfolio">View Portfolio</a>
     </div>
   </div>
-  <div class="scroll-cue" aria-hidden="true">Scroll<span></span></div>
 </section>
 
 <!-- MARQUEE -->
